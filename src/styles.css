@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --bg-canvas: #090b10;
+  --bg-ink: #06080c;
+  --surface-1: rgba(16, 19, 25, 0.82);
+  --surface-2: rgba(11, 14, 19, 0.9);
+  --surface-3: rgba(255, 255, 255, 0.035);
+  --surface-4: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text-strong: #f4f7fb;
+  --text-body: #cbd3df;
+  --text-muted: #8d98a9;
+  --tone-mint: #7dd3c4;
+  --tone-amber: #fbbf24;
+  --tone-rose: #fb7185;
+  --tone-sky: #7dd3fc;
+  --shadow-panel: 0 24px 80px rgba(0, 0, 0, 0.32);
+  --shell-gradient:
+    radial-gradient(circle at top left, rgba(125, 211, 196, 0.1), transparent 28%),
+    radial-gradient(circle at top right, rgba(125, 211, 252, 0.08), transparent 24%),
+    linear-gradient(180deg, #0d1016 0%, #090b10 55%, #06080c 100%);
+  background-color: var(--bg-canvas);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--shell-gradient);
+  color: var(--text-strong);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(148, 163, 184, 0.35);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.panel-shell {
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(18px);
+}
+
+.panel-muted {
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+}
+
+.panel-chip {
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-3);
+}
+
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-position: center center;
+  background-size: 28px 28px;
+}
