@@ -1,0 +1,238 @@
+{
+  "languageSwitcher": {
+    "label": "Idioma de la UI",
+    "options": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文",
+      "ja": "日本語",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
+  },
+  "locales": {
+    "en": "Inglés",
+    "es": "Español",
+    "fr": "Francés",
+    "it": "Italiano",
+    "de": "Alemán",
+    "fi": "Finés",
+    "th": "Tailandés",
+    "he": "Hebreo",
+    "ar": "Árabe",
+    "ko": "Coreano",
+    "ja": "Japonés",
+    "km": "Jemer",
+    "el": "Griego",
+    "vi": "Vietnamita"
+  },
+  "dashboard": {
+    "badge": "QA de localización deportiva",
+    "subbadge": "Revisión multilingüe para apps de entrenamiento y UI de dispositivos",
+    "title": "Revisa la UI de entrenamiento, wearables y sensores antes de publicar en cada idioma.",
+    "description": "Inspecciona capturas de apps fitness, pantallas de reloj, resúmenes GPS y flujos con muchas métricas. El OCR extrae el texto visible y detecta riesgos de desbordamiento, RTL, placeholders, truncado y fallback tipográfico.",
+    "chips": [
+      "Resúmenes de entrenamiento",
+      "UI de wearables",
+      "Etiquetas de métricas",
+      "Pantallas GPS y sensores"
+    ],
+    "currentPass": "Revisión actual",
+    "locale": "Idioma objetivo",
+    "flags": "Alertas",
+    "high": "Alta",
+    "activeAsset": "Recurso activo:",
+    "activeAssetEmpty": "Esperando una captura de entrenamiento o dispositivo"
+  },
+  "status": {
+    "review": {
+      "awaiting": "Esperando captura para revisión",
+      "preparing": "Preparando captura",
+      "running": "Ejecutando OCR y comprobaciones de diseño",
+      "blocked": "Revisión bloqueada",
+      "findings": "Hallazgos listos para revisión de localización",
+      "clean": "Sin problemas evidentes detectados"
+    },
+    "ocr": {
+      "awaiting": "Esperando captura",
+      "preparing": "Preparando captura",
+      "runningFor": "Ejecutando OCR para {{language}}",
+      "issuesDetected": "Problemas detectados",
+      "noIssues": "No se detectaron problemas evidentes",
+      "failed": "Error de OCR"
+    },
+    "engine": {
+      "loadingTesseractCore": "Cargando núcleo OCR",
+      "loadedTesseractCore": "Núcleo OCR cargado",
+      "initializingTesseract": "Inicializando motor OCR",
+      "initializedTesseract": "Motor OCR listo",
+      "loadingLanguageTraineddata": "Cargando datos de idioma",
+      "loadedLanguageTraineddata": "Datos de idioma cargados",
+      "initializingApi": "Inicializando API OCR",
+      "initializedApi": "API OCR lista",
+      "recognizingText": "Reconociendo texto"
+    }
+  },
+  "metrics": {
+    "findingsReady": "Hallazgos listos",
+    "highSeverity": "{{count}} de alta severidad",
+    "noHighSeverity": "Sin severidad alta",
+    "ocrConfidence": "Confianza OCR",
+    "inProgress": "En curso",
+    "latestPass": "Última pasada",
+    "expansionRisk": "Riesgo de expansión",
+    "baseline": "Base {{language}}",
+    "scriptDirection": "Dirección de escritura",
+    "rtlChecks": "Comprobaciones RTL reflejadas",
+    "ltrChecks": "Comprobaciones estándar"
+  },
+  "appShell": {
+    "targetLocale": "Idioma objetivo",
+    "reviewWorkspace": "Espacio de revisión",
+    "reviewWorkspaceTitle": "Valida capturas antes del handoff multilingüe",
+    "reviewWorkspaceDescription": "Ejecuta una pasada QA centrada en flujos de entrenamiento, resúmenes postcarrera, pantallas de emparejamiento y tarjetas con métricas sin cambiar el motor OCR ni la lógica heurística.",
+    "reviewSummary": "Resumen de revisión",
+    "ocrStatus": "Estado de OCR",
+    "locale": "Idioma",
+    "screenshot": "Captura",
+    "loaded": "Cargada",
+    "pending": "Pendiente",
+    "bestInputs": "Entradas recomendadas",
+    "bestInputItems": [
+      "Tarjetas de resultados con etiquetas compactas.",
+      "Flujos de onboarding wearable o emparejamiento de accesorios.",
+      "Estados de mapa, GPS y sensores con valores dinámicos."
+    ],
+    "releaseHandoff": "Handoff de release",
+    "releaseHandoffTitle": "Qué debe detectar esta pasada",
+    "releaseCards": [
+      {
+        "title": "Riesgo de layout en superficies compactas",
+        "description": "Tarjetas, pestañas y layouts tipo reloj donde las traducciones largas compiten con métricas e iconos."
+      },
+      {
+        "title": "Texto dinámico y placeholders",
+        "description": "Mensajes de coaching, estados de logro y lecturas de sensores que mezclan variables con texto localizado."
+      },
+      {
+        "title": "Compatibilidad de escritura y legibilidad",
+        "description": "Fallback tipográfico, acentos recortados y problemas direccionales que aparecen tras la expansión."
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "Entrada de capturas",
+    "title": "Sube una captura PNG o JPG de una app deportiva o UI de dispositivo",
+    "description": "Usa capturas cercanas a producción de resúmenes, configuración wearable, flujos de recuperación o paneles de métricas. OCR extraerá el texto visible y señalará riesgos de localización sobre la interfaz.",
+    "currentAsset": "Recurso actual:",
+    "button": "Elegir captura",
+    "invalidFile": "Sube una captura PNG o JPG para continuar.",
+    "loadFailed": "No se pudo cargar la imagen subida."
+  },
+  "canvas": {
+    "eyebrow": "Vista anotada",
+    "description": "Los recuadros marcan regiones de texto sospechosas en la superficie deportiva seleccionada.",
+    "emptyTitle": "Sube una captura de un producto deportivo para empezar.",
+    "emptyDescription": "Los resultados OCR, heurísticas por idioma y recuadros de alertas aparecerán aquí después de añadir un PNG o JPG de una app móvil, UI de reloj o pantalla con muchas métricas.",
+    "imageAlt": "Captura de UI subida"
+  },
+  "qa": {
+    "title": "Hallazgos automáticos de release",
+    "subtitle": "Revisando {{language}} con extracción OCR y heurísticas de localización para UI deportivas.",
+    "flagged": "{{count}} marcados",
+    "currentAsset": "Recurso actual",
+    "noAsset": "No se ha seleccionado ninguna captura",
+    "ocrInProgress": "OCR en curso",
+    "readyToReview": "Listo para revisar",
+    "standby": "En espera",
+    "waitingTitle": "Esperando una superficie para revisar",
+    "waitingDescription": "Añade una captura de una app de entrenamiento, flujo wearable o panel de métricas para generar texto OCR y anotaciones.",
+    "issue": "Problema {{index}}",
+    "suggestedFix": "Solución sugerida:",
+    "characterExpansionRisk": "Riesgo de expansión {{risk}}%",
+    "extractedText": "Texto extraído",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "No se detectaron problemas evidentes en esta pasada.",
+    "noIssuesDescription": "Las heurísticas no detectaron desbordamiento, orden de placeholders ni recortes para este idioma. Aun así, se recomienda una revisión manual final.",
+    "ocrOutputPlaceholder": "La salida de OCR aparecerá aquí después de procesar la captura.",
+    "categories": {
+      "overflow": "Desbordamiento de texto",
+      "rtl": "Diseño RTL",
+      "placeholder": "Orden de placeholders",
+      "lineHeight": "Recorte por altura de línea",
+      "truncation": "Truncado de segunda línea",
+      "fontFallback": "Fallback tipográfico"
+    },
+    "severity": {
+      "High": "Alta",
+      "Medium": "Media",
+      "Low": "Baja"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "Guía de revisión",
+    "title": "Controles de release para UI deportivas",
+    "expansion": "Expansión",
+    "baseline": "Base {{value}}%",
+    "expansionDescription": "Prioriza tarjetas densas de entrenamiento, etiquetas compactas y layouts de reloj.",
+    "direction": "Dirección",
+    "rtl": "Revisión RTL",
+    "ltr": "Revisión LTR",
+    "rtlDescription": "Verifica márgenes reflejados, orden de iconos y métricas direccionales en cada superficie marcada.",
+    "ltrDescription": "Confirma anclaje a la izquierda, formato numérico y ritmo de etiquetas en pantallas densas.",
+    "prioritySurfaces": "Superficies prioritarias",
+    "priorityTitle": "Reloj, GPS, recuperación",
+    "priorityDescription": "Céntrate en resúmenes de entrenamiento, tarjetas de ritmo, estados de frecuencia cardiaca y configuración de accesorios.",
+    "manualPass": "Revisión manual",
+    "manualPassItems": [
+      "Comprueba etiquetas de unidades, abreviaturas de ritmo y consistencia en nombres de sensores.",
+      "Verifica el ancho de los CTA en pantallas de objetivo completado y detalle de entrenamiento.",
+      "Revisa placeholders dentro de mensajes dinámicos y tarjetas de resumen."
+    ],
+    "escalateWhen": "Escalar cuando",
+    "escalateItems": [
+      "Los problemas de alta severidad afectan restricciones de watch face o resúmenes postcarrera.",
+      "El fallback tipográfico cambia el tono métrico entre móvil y wearable.",
+      "El orden RTL rompe pares icono + valor en pantallas de actividad, recuperación o mapa."
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR extrajo muy poco texto",
+      "description": "La captura no generó suficiente texto para una pasada completa de QA de localización.",
+      "fix": "Prueba con una captura de mayor resolución o recorta más cerca del texto antes de volver a ejecutar OCR."
+    },
+    "overflow": {
+      "title": "El texto probablemente excede su contenedor",
+      "description": "La caja OCR de \"{{text}}\" es inusualmente ancha y se acerca al borde, una señal común de desbordamiento en UI localizadas.",
+      "fix": "Aumenta el ancho del contenedor, permite saltos de línea o acorta el texto localizado."
+    },
+    "rtl": {
+      "title": "El texto RTL parece alineado a la izquierda o desajustado",
+      "description": "La línea {{language}} \"{{text}}\" está posicionada como un elemento LTR, lo que puede indicar problemas de espejo o alineación.",
+      "fix": "Alinea el contenedor a la derecha, refleja los espaciados direccionales y verifica el orden icono + texto."
+    },
+    "placeholder": {
+      "title": "El orden de placeholders puede fallar en este idioma",
+      "description": "Se detectaron placeholders en \"{{text}}\". Los placeholders con orden cambiado o mezcla direccional suelen romper la estructura de la frase.",
+      "fix": "Usa un orden explícito de placeholders y confirma que los traductores puedan reordenarlos sin cambiar el significado."
+    },
+    "lineHeight": {
+      "title": "La altura de línea parece demasiado ajustada",
+      "description": "La línea \"{{text}}\" tiene poco espacio vertical respecto a líneas vecinas, lo que puede recortar acentos, descendentes o marcas RTL.",
+      "fix": "Aumenta la altura de línea o el padding vertical, especialmente para marcas específicas del script."
+    },
+    "truncation": {
+      "title": "La segunda línea puede estar truncada",
+      "description": "La línea siguiente \"{{text}}\" es bruscamente más corta que la anterior, lo que suele indicar contenido oculto o limitado.",
+      "fix": "Relaja los límites de líneas, aumenta la altura del contenedor o acorta el texto localizado."
+    },
+    "fontFallback": {
+      "title": "Se detectó riesgo de fallback tipográfico para este script",
+      "descriptionSized": "Se detectaron tamaños de glifos inusualmente inconsistentes en \"{{text}}\", lo que puede ocurrir cuando la UI recurre a una fuente secundaria.",
+      "descriptionMissing": "OCR no recuperó con confianza los caracteres esperados de {{language}}, lo que puede indicar fallback o cobertura insuficiente del script.",
+      "fix": "Añade una pila tipográfica explícita para este script y verifica que la familia fallback mantenga métricas y tono adecuados."
+    }
+  }
+}

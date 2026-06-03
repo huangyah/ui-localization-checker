@@ -1,3 +1,4 @@
+import i18n from '../i18n';
 import { getLanguageConfig } from './languages';
 import type {
   BoundingBox,
@@ -16,15 +17,6 @@ interface AnalyzeLocalizationIssuesArgs {
 
 const placeholderPattern = /(%\d+\$[sd]|%[sd]|\{\{?\s*[\w.]+\s*\}?\}|:\w+)/g;
 
-const categoryLabels: Record<DetectionIssueCategory, string> = {
-  overflow: 'Text Overflow',
-  rtl: 'RTL Layout',
-  placeholder: 'Placeholder Order',
-  lineHeight: 'Line Height Clipping',
-  truncation: 'Second Line Truncation',
-  fontFallback: 'Font Fallback',
-};
-
 const riskModifierByCategory: Record<DetectionIssueCategory, number> = {
   overflow: 12,
   rtl: 6,
@@ -39,6 +31,9 @@ const severityBonus = {
   Medium: 7,
   Low: 3,
 } as const;
+
+const tallScriptLanguages: SupportedLanguage[] = ['th', 'ar', 'he', 'km', 'vi'];
+const nonLatinLanguages: SupportedLanguage[] = ['th', 'ar', 'he', 'ko', 'ja', 'km', 'el', 'vi'];
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -78,7 +73,7 @@ function createIssue(
     id: `${category}-${ordinal}`,
     bbox,
     category,
-    categoryLabel: categoryLabels[category],
+    categoryLabel: i18n.t(`qa.categories.${category}`),
     charExpansionRisk: clamp(
       languageConfig.expansionBaseline + riskModifierByCategory[category] + severityBonus[severity],
       0,
@@ -140,9 +135,9 @@ export function analyzeLocalizationIssues({
       createIssue(
         'fontFallback',
         'Low',
-        'OCR extracted very little text',
-        'The screenshot did not yield enough text for a complete localization QA pass.',
-        'Try a higher-resolution screenshot or crop closer to the UI copy before rerunning OCR.',
+        i18n.t('issues.ocrLowText.title'),
+        i18n.t('issues.ocrLowText.description'),
+        i18n.t('issues.ocrLowText.fix'),
         { x: 24, y: 24, width: imageSize.width * 0.4, height: imageSize.height * 0.15 },
         language,
         1,
@@ -165,15 +160,18 @@ export function analyzeLocalizationIssues({
 
   overflowCandidates.forEach(({ line }, index) => {
     const rightEdgeRatio = (line.bbox.x + line.bbox.width) / imageSize.width;
-    const severity = rightEdgeRatio > 0.93 || languageConfig.expansionBaseline >= 25 ? 'High' : 'Medium';
+    const severity =
+      rightEdgeRatio > 0.93 || languageConfig.expansionBaseline >= 25 || lineTextLength(line) >= 22
+        ? 'High'
+        : 'Medium';
 
     issues.push(
       createIssue(
         'overflow',
         severity,
-        'Text likely exceeds its intended container',
-        `The OCR box for "${line.text}" spans unusually wide and approaches the surrounding edge, which is a common overflow signal in localized UI.`,
-        'Increase container width, allow wrapping, or shorten the localized copy for this surface.',
+        i18n.t('issues.overflow.title'),
+        i18n.t('issues.overflow.description', { text: line.text }),
+        i18n.t('issues.overflow.fix'),
         normalizeBBox(line),
         language,
         index + 1,
@@ -182,6 +180,8 @@ export function analyzeLocalizationIssues({
   });
 
   if (languageConfig.rtl) {
+    const languageLabel = i18n.t(languageConfig.labelKey);
+
     lines
       .filter((line) => hasScript(line.text, languageConfig.scriptPattern))
       .filter((line) => line.bbox.x / imageSize.width < 0.34 || (line.bbox.x + line.bbox.width) / imageSize.width < 0.72)
@@ -191,9 +191,9 @@ export function analyzeLocalizationIssues({
           createIssue(
             'rtl',
             'High',
-            'RTL text appears left-anchored or visually misaligned',
-            `The ${languageConfig.label} line "${line.text}" is positioned like an LTR element, which may indicate mirroring or alignment problems.`,
-            'Right-align the container, mirror directional spacing, and verify icon-plus-text order for RTL rendering.',
+            i18n.t('issues.rtl.title'),
+            i18n.t('issues.rtl.description', { language: languageLabel, text: line.text }),
+            i18n.t('issues.rtl.fix'),
             normalizeBBox(line),
             language,
             index + 1,
@@ -220,9 +220,9 @@ export function analyzeLocalizationIssues({
           createIssue(
             'placeholder',
             descending ? 'High' : 'Medium',
-            'Placeholder order may break in this locale',
-            `Detected placeholder tokens in "${line.text}". Mixed-direction or reordered placeholders often break sentence structure during localization.`,
-            'Use explicit placeholder ordering and verify translators can safely reorder tokens without changing meaning.',
+            i18n.t('issues.placeholder.title'),
+            i18n.t('issues.placeholder.description', { text: line.text }),
+            i18n.t('issues.placeholder.fix'),
             normalizeBBox(line),
             language,
             index + 1,
@@ -241,7 +241,7 @@ export function analyzeLocalizationIssues({
       }
 
       const gap = nextLine.bbox.y - (line.bbox.y + line.bbox.height);
-      const likelyTallScript = language === 'th' || language === 'ar' || language === 'he' || /[gjpqy]/i.test(line.text);
+      const likelyTallScript = tallScriptLanguages.includes(language) || /[gjpqy]/i.test(line.text);
       return likelyTallScript && (line.bbox.height < medianHeight * 0.8 || gap < medianHeight * 0.15);
     })
     .slice(0, 2);
@@ -250,10 +250,10 @@ export function analyzeLocalizationIssues({
     issues.push(
       createIssue(
         'lineHeight',
-        language === 'th' ? 'High' : 'Medium',
-        'Line height looks too tight for the rendered text',
-        `The text line "${line.text}" has limited vertical space compared with adjacent OCR lines, which can clip accents, descenders, or RTL marks.`,
-        'Increase line-height or vertical padding for this component, especially for script-specific glyph marks.',
+        language === 'th' || language === 'km' ? 'High' : 'Medium',
+        i18n.t('issues.lineHeight.title'),
+        i18n.t('issues.lineHeight.description', { text: line.text }),
+        i18n.t('issues.lineHeight.fix'),
         normalizeBBox(line),
         language,
         index + 1,
@@ -277,9 +277,9 @@ export function analyzeLocalizationIssues({
         createIssue(
           'truncation',
           endsWithEllipsis ? 'High' : 'Medium',
-          'Second line may be truncated',
-          `The follow-up line "${secondLine.text}" is abruptly shorter than the line above, which often indicates clamped or hidden content.`,
-          'Relax line clamps, increase container height, or shorten the localized copy before release.',
+          i18n.t('issues.truncation.title'),
+          i18n.t('issues.truncation.description', { text: secondLine.text }),
+          i18n.t('issues.truncation.fix'),
           normalizeBBox(secondLine),
           language,
           index + 1,
@@ -289,6 +289,7 @@ export function analyzeLocalizationIssues({
   });
 
   if (language !== 'en' && language !== 'de') {
+    const languageLabel = i18n.t(languageConfig.labelKey);
     const expectedScriptLines = lines.filter((line) => hasScript(line.text, languageConfig.scriptPattern));
     const confidenceAverage = expectedScriptLines.length
       ? expectedScriptLines.reduce((total, line) => total + line.confidence, 0) / expectedScriptLines.length
@@ -300,18 +301,20 @@ export function analyzeLocalizationIssues({
     );
     const heightOutlier = tallestLine ? tallestLine.bbox.height > medianHeight * 1.35 : false;
 
-    if (!expectedScriptLines.length || confidenceAverage < 78 || heightOutlier) {
+    const confidenceFloor = nonLatinLanguages.includes(language) ? 76 : 80;
+
+    if (!expectedScriptLines.length || confidenceAverage < confidenceFloor || heightOutlier) {
       const fallbackLine = tallestLine ?? lines[0];
 
       issues.push(
         createIssue(
           'fontFallback',
           expectedScriptLines.length ? 'Medium' : 'Low',
-          'Font fallback risk detected for this script',
+          i18n.t('issues.fontFallback.title'),
           expectedScriptLines.length
-            ? `Detected unusually inconsistent glyph sizing in "${fallbackLine.text}", which can happen when the UI falls back to a secondary font.`
-            : `OCR did not confidently recover expected ${languageConfig.label} script characters, which can signal fallback or script coverage problems.`,
-          'Add an explicit font stack for this script and verify the fallback family matches your intended metrics and tone.',
+            ? i18n.t('issues.fontFallback.descriptionSized', { text: fallbackLine.text })
+            : i18n.t('issues.fontFallback.descriptionMissing', { language: languageLabel }),
+          i18n.t('issues.fontFallback.fix'),
           normalizeBBox(fallbackLine),
           language,
           1,

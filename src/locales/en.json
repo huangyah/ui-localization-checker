@@ -1,0 +1,238 @@
+{
+  "languageSwitcher": {
+    "label": "UI Language",
+    "options": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文",
+      "ja": "日本語",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
+  },
+  "locales": {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "it": "Italian",
+    "de": "German",
+    "fi": "Finnish",
+    "th": "Thai",
+    "he": "Hebrew",
+    "ar": "Arabic",
+    "ko": "Korean",
+    "ja": "Japanese",
+    "km": "Khmer",
+    "el": "Greek",
+    "vi": "Vietnamese"
+  },
+  "dashboard": {
+    "badge": "Sports Localization QA",
+    "subbadge": "Multilingual release review for training apps and device UI",
+    "title": "Review workout, wearable, and sensor-driven UI before it ships in every locale.",
+    "description": "Inspect screenshots from fitness apps, watch surfaces, GPS summaries, and metrics-heavy product flows. OCR extracts visible copy, then the checker surfaces likely overflow, RTL, placeholder, truncation, and font fallback risks for localization teams.",
+    "chips": [
+      "Workout summaries",
+      "Wearable device UI",
+      "Metrics labels",
+      "GPS and sensor screens"
+    ],
+    "currentPass": "Current pass",
+    "locale": "Locale",
+    "flags": "Flags",
+    "high": "High",
+    "activeAsset": "Active asset:",
+    "activeAssetEmpty": "Waiting for a workout or device screenshot"
+  },
+  "status": {
+    "review": {
+      "awaiting": "Awaiting review surface",
+      "preparing": "Preparing screenshot",
+      "running": "Running OCR and layout checks",
+      "blocked": "Review blocked",
+      "findings": "Findings ready for localization review",
+      "clean": "Clean heuristic pass"
+    },
+    "ocr": {
+      "awaiting": "Awaiting screenshot",
+      "preparing": "Preparing screenshot",
+      "runningFor": "Running OCR for {{language}}",
+      "issuesDetected": "Issues detected",
+      "noIssues": "No obvious issues detected",
+      "failed": "OCR failed"
+    },
+    "engine": {
+      "loadingTesseractCore": "Loading OCR core",
+      "loadedTesseractCore": "OCR core loaded",
+      "initializingTesseract": "Initializing OCR engine",
+      "initializedTesseract": "OCR engine ready",
+      "loadingLanguageTraineddata": "Loading language data",
+      "loadedLanguageTraineddata": "Language data loaded",
+      "initializingApi": "Initializing OCR API",
+      "initializedApi": "OCR API ready",
+      "recognizingText": "Recognizing text"
+    }
+  },
+  "metrics": {
+    "findingsReady": "Findings ready",
+    "highSeverity": "{{count}} high severity",
+    "noHighSeverity": "No high severity",
+    "ocrConfidence": "OCR confidence",
+    "inProgress": "In progress",
+    "latestPass": "Latest pass",
+    "expansionRisk": "Expansion risk",
+    "baseline": "{{language}} baseline",
+    "scriptDirection": "Script direction",
+    "rtlChecks": "Mirror layout checks",
+    "ltrChecks": "Standard layout checks"
+  },
+  "appShell": {
+    "targetLocale": "Target locale",
+    "reviewWorkspace": "Review workspace",
+    "reviewWorkspaceTitle": "Validate screenshots before multilingual release handoff",
+    "reviewWorkspaceDescription": "Run a focused QA pass on training flows, post-run summaries, wearable pairing screens, and metrics-heavy cards without changing the OCR or issue-detection engine.",
+    "reviewSummary": "Review summary",
+    "ocrStatus": "OCR status",
+    "locale": "Locale",
+    "screenshot": "Screenshot",
+    "loaded": "Loaded",
+    "pending": "Pending",
+    "bestInputs": "Best inputs",
+    "bestInputItems": [
+      "Workout result cards with tight metadata labels.",
+      "Wearable onboarding or accessory pairing flows.",
+      "Map, GPS, and sensor summary states with dynamic values."
+    ],
+    "releaseHandoff": "Release handoff",
+    "releaseHandoffTitle": "What this pass is meant to catch",
+    "releaseCards": [
+      {
+        "title": "Layout risk on compact surfaces",
+        "description": "Cards, tabs, and watch-sized layouts where longer localized strings compete with metrics and icons."
+      },
+      {
+        "title": "Dynamic copy and placeholders",
+        "description": "Coaching messages, achievement states, and sensor readouts that combine variables with localized text."
+      },
+      {
+        "title": "Script support and readability",
+        "description": "Fallback font drift, clipped accents, and directional issues that appear only after locale expansion."
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "Screenshot intake",
+    "title": "Upload a PNG or JPG screenshot from a workout app or device UI",
+    "description": "Use production-like captures from training summaries, wearable setup, recovery flows, or metrics dashboards. OCR will extract visible strings and map likely localization risks directly onto the surface.",
+    "currentAsset": "Current asset:",
+    "button": "Choose screenshot",
+    "invalidFile": "Upload a PNG or JPG screenshot to continue.",
+    "loadFailed": "Failed to load the uploaded image."
+  },
+  "canvas": {
+    "eyebrow": "Annotated preview",
+    "description": "Overlay boxes mark suspicious copy regions on the selected sports UI surface.",
+    "emptyTitle": "Upload a sports product screenshot to begin.",
+    "emptyDescription": "OCR output, language-specific heuristics, and flagged bounding boxes will appear here after you add a PNG or JPG from a mobile app, watch UI, or metrics-heavy device screen.",
+    "imageAlt": "Uploaded UI screenshot"
+  },
+  "qa": {
+    "title": "Automated release findings",
+    "subtitle": "Reviewing for {{language}} with OCR extraction and sports UI localization heuristics.",
+    "flagged": "{{count}} flagged",
+    "currentAsset": "Current asset",
+    "noAsset": "No screenshot selected",
+    "ocrInProgress": "OCR in progress",
+    "readyToReview": "Ready to review",
+    "standby": "Standby",
+    "waitingTitle": "Waiting for a review surface",
+    "waitingDescription": "Add a screenshot from a training app, wearable workflow, or metrics dashboard to generate OCR text and issue annotations for this locale.",
+    "issue": "Issue {{index}}",
+    "suggestedFix": "Suggested fix:",
+    "characterExpansionRisk": "Character Expansion Risk {{risk}}%",
+    "extractedText": "Extracted text",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "No obvious issues were flagged in this pass.",
+    "noIssuesDescription": "The heuristics did not detect overflow, placeholder order, or clipping problems for the selected locale. A final manual pass is still recommended for typography, spacing, and brand tone.",
+    "ocrOutputPlaceholder": "OCR output will appear here after a screenshot is processed.",
+    "categories": {
+      "overflow": "Text Overflow",
+      "rtl": "RTL Layout",
+      "placeholder": "Placeholder Order",
+      "lineHeight": "Line Height Clipping",
+      "truncation": "Second Line Truncation",
+      "fontFallback": "Font Fallback"
+    },
+    "severity": {
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "Reviewer guidance",
+    "title": "Release checks tuned for sports UI",
+    "expansion": "Expansion",
+    "baseline": "{{value}}% baseline",
+    "expansionDescription": "Prioritize dense workout cards, split labels, and compact watch layouts.",
+    "direction": "Direction",
+    "rtl": "RTL review",
+    "ltr": "LTR review",
+    "rtlDescription": "Verify mirrored paddings, icon order, and directional metrics on every flagged surface.",
+    "ltrDescription": "Confirm left anchoring, number formatting, and label rhythm across data-heavy screens.",
+    "prioritySurfaces": "Priority surfaces",
+    "priorityTitle": "Watch, GPS, recovery",
+    "priorityDescription": "Focus on workout summaries, pace cards, heart-rate states, and accessory setup flows.",
+    "manualPass": "Manual pass",
+    "manualPassItems": [
+      "Check unit labels, pace abbreviations, and sensor naming consistency.",
+      "Verify CTA width on goal-completion and workout-detail screens.",
+      "Review placeholders inside dynamic coaching messages and summary cards."
+    ],
+    "escalateWhen": "Escalate when",
+    "escalateItems": [
+      "High-severity findings affect watch face constraints or post-run summaries.",
+      "Fallback fonts change metrics tone between phone and wearable surfaces.",
+      "RTL order breaks icon plus value pairs on activity, recovery, or map screens."
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR extracted very little text",
+      "description": "The screenshot did not yield enough text for a complete localization QA pass.",
+      "fix": "Try a higher-resolution screenshot or crop closer to the UI copy before rerunning OCR."
+    },
+    "overflow": {
+      "title": "Text likely exceeds its intended container",
+      "description": "The OCR box for \"{{text}}\" spans unusually wide and approaches the surrounding edge, which is a common overflow signal in localized UI.",
+      "fix": "Increase container width, allow wrapping, or shorten the localized copy for this surface."
+    },
+    "rtl": {
+      "title": "RTL text appears left-anchored or visually misaligned",
+      "description": "The {{language}} line \"{{text}}\" is positioned like an LTR element, which may indicate mirroring or alignment problems.",
+      "fix": "Right-align the container, mirror directional spacing, and verify icon-plus-text order for RTL rendering."
+    },
+    "placeholder": {
+      "title": "Placeholder order may break in this locale",
+      "description": "Detected placeholder tokens in \"{{text}}\". Mixed-direction or reordered placeholders often break sentence structure during localization.",
+      "fix": "Use explicit placeholder ordering and verify translators can safely reorder tokens without changing meaning."
+    },
+    "lineHeight": {
+      "title": "Line height looks too tight for the rendered text",
+      "description": "The text line \"{{text}}\" has limited vertical space compared with adjacent OCR lines, which can clip accents, descenders, or RTL marks.",
+      "fix": "Increase line-height or vertical padding for this component, especially for script-specific glyph marks."
+    },
+    "truncation": {
+      "title": "Second line may be truncated",
+      "description": "The follow-up line \"{{text}}\" is abruptly shorter than the line above, which often indicates clamped or hidden content.",
+      "fix": "Relax line clamps, increase container height, or shorten the localized copy before release."
+    },
+    "fontFallback": {
+      "title": "Font fallback risk detected for this script",
+      "descriptionSized": "Detected unusually inconsistent glyph sizing in \"{{text}}\", which can happen when the UI falls back to a secondary font.",
+      "descriptionMissing": "OCR did not confidently recover expected {{language}} script characters, which can signal fallback or script coverage problems.",
+      "fix": "Add an explicit font stack for this script and verify the fallback family matches your intended metrics and tone."
+    }
+  }
+}

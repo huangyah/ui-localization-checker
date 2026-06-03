@@ -1,6 +1,7 @@
 import { cn } from '../utils/cn';
 import { getLanguageConfig } from '../utils/languages';
 import type { DetectionIssue, SupportedLanguage } from '../utils/types';
+import { useTranslation } from 'react-i18next';
 
 interface QAReportPanelProps {
   activeIssueId: string | null;
@@ -14,9 +15,9 @@ interface QAReportPanelProps {
 }
 
 const severityClassNames = {
-  High: 'border-[rgba(251,113,133,0.28)] bg-[rgba(251,113,133,0.1)] text-[var(--text-strong)]',
-  Medium: 'border-[rgba(251,191,36,0.28)] bg-[rgba(251,191,36,0.1)] text-[var(--text-strong)]',
-  Low: 'border-[rgba(125,211,252,0.24)] bg-[rgba(125,211,252,0.1)] text-[var(--text-strong)]',
+  High: 'severity-high',
+  Medium: 'severity-medium',
+  Low: 'severity-low',
 } as const;
 
 export function QAReportPanel({
@@ -29,36 +30,37 @@ export function QAReportPanel({
   onIssueHover,
   phase,
 }: QAReportPanelProps) {
-  const languageLabel = getLanguageConfig(language).label;
+  const { t } = useTranslation();
+  const languageLabel = t(getLanguageConfig(language).labelKey);
   const isIdle = phase === 'idle' || phase === 'preparing';
 
   return (
-    <aside className="panel-shell rounded-[2rem] p-4 sm:p-5">
+    <aside className="panel-shell cut-corner-panel rounded-[2rem] p-4 sm:p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--text-muted)]">QA report</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--text-strong)]">
-            Automated release findings
+          <p className="text-xs uppercase tracking-[0.28em] text-[var(--text-muted)]">{t('qa.title')}</p>
+          <h2 className="section-title mt-3 text-2xl font-semibold tracking-[-0.04em]">
+            {t('qa.title')}
           </h2>
           <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-            Reviewing for {languageLabel} with OCR extraction and sports UI localization heuristics.
+            {t('qa.subtitle', { language: languageLabel })}
           </p>
         </div>
-        <div className="panel-chip rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[var(--text-body)]">
-          {issues.length} flagged
+        <div className="status-badge rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[var(--text-body)]">
+          {t('qa.flagged', { count: issues.length })}
         </div>
       </div>
 
       <div className="panel-muted mt-4 rounded-2xl p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-muted)]">Current asset</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--tone-sky)]">{t('qa.currentAsset')}</p>
             <p className="mt-2 text-sm font-medium text-[var(--text-strong)]">
-              {imageName ?? 'No screenshot selected'}
+              {imageName ?? t('qa.noAsset')}
             </p>
           </div>
-          <div className="panel-chip rounded-full px-3 py-1 text-[11px] text-[var(--text-body)]">
-            {phase === 'running' ? 'OCR in progress' : phase === 'done' ? 'Ready to review' : 'Standby'}
+          <div className="status-badge rounded-full px-3 py-1 text-[11px] text-[var(--text-body)]">
+            {phase === 'running' ? t('qa.ocrInProgress') : phase === 'done' ? t('qa.readyToReview') : t('qa.standby')}
           </div>
         </div>
       </div>
@@ -72,10 +74,9 @@ export function QAReportPanel({
       <div className="mt-4 space-y-3">
         {isIdle ? (
           <div className="panel-muted rounded-2xl p-4">
-            <h3 className="text-sm font-medium text-[var(--text-strong)]">Waiting for a review surface</h3>
+            <h3 className="text-sm font-medium text-[var(--text-strong)]">{t('qa.waitingTitle')}</h3>
             <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-              Add a screenshot from a training app, wearable workflow, or metrics dashboard to generate OCR
-              text and issue annotations for this locale.
+              {t('qa.waitingDescription')}
             </p>
           </div>
         ) : null}
@@ -84,7 +85,8 @@ export function QAReportPanel({
           <article
             key={issue.id}
             className={cn(
-              'panel-muted rounded-2xl p-4 transition duration-200 hover:border-white/16 hover:bg-white/5',
+              'interactive-panel rounded-2xl border p-4 transition duration-200',
+              index % 2 === 0 ? 'report-zebra border-[rgba(51,65,85,0.95)]' : 'report-zebra-alt border-[rgba(51,65,85,0.95)]',
               activeIssueId === issue.id && 'border-[rgba(251,113,133,0.26)] bg-[rgba(251,113,133,0.08)]',
             )}
             onMouseEnter={() => onIssueHover(issue.id)}
@@ -93,25 +95,25 @@ export function QAReportPanel({
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.24em] text-[var(--text-muted)]">
-                  Issue {index + 1}
+                  {t('qa.issue', { index: index + 1 })}
                 </div>
                 <h3 className="mt-2 text-sm font-medium text-[var(--text-strong)]">{issue.title}</h3>
               </div>
-              <div className={cn('rounded-full border px-2.5 py-1 text-[11px] font-medium', severityClassNames[issue.severity])}>
-                {issue.severity}
+              <div className={cn('rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]', severityClassNames[issue.severity])}>
+                {t(`qa.severity.${issue.severity}`)}
               </div>
             </div>
 
             <p className="mt-3 text-sm leading-6 text-[var(--text-body)]">{issue.description}</p>
             <p className="mt-3 text-sm text-[var(--text-body)]">
-              <span className="text-[var(--text-strong)]">Suggested fix:</span> {issue.suggestedFix}
+              <span className="text-[var(--tone-sky)]">{t('qa.suggestedFix')}</span> {issue.suggestedFix}
             </p>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="panel-chip rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
-                Character Expansion Risk {issue.charExpansionRisk}%
+              <span className="status-badge rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
+                {t('qa.characterExpansionRisk', { risk: issue.charExpansionRisk })}
               </span>
-              <span className="panel-chip rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
+              <span className="status-badge rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
                 {issue.categoryLabel}
               </span>
             </div>
@@ -121,11 +123,10 @@ export function QAReportPanel({
         {phase === 'done' && issues.length === 0 ? (
           <div className="rounded-2xl border border-[rgba(125,211,196,0.18)] bg-[rgba(125,211,196,0.08)] p-4">
             <h3 className="text-sm font-medium text-[var(--text-strong)]">
-              No obvious issues were flagged in this pass.
+              {t('qa.noIssuesTitle')}
             </h3>
             <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-              The heuristics did not detect overflow, placeholder order, or clipping problems for the selected
-              locale. A final manual pass is still recommended for typography, spacing, and brand tone.
+              {t('qa.noIssuesDescription')}
             </p>
           </div>
         ) : null}
@@ -133,13 +134,13 @@ export function QAReportPanel({
 
       <div className="panel-muted mt-4 rounded-2xl p-4">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-muted)]">Extracted text</p>
-          <span className="panel-chip rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
-            OCR
+          <p className="text-xs uppercase tracking-[0.24em] text-[var(--tone-sky)]">{t('qa.extractedText')}</p>
+          <span className="status-badge rounded-full px-2.5 py-1 text-[11px] text-[var(--text-body)]">
+            {t('qa.ocrTag')}
           </span>
         </div>
-        <pre className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-xl border border-white/8 bg-black/20 p-3 font-mono text-xs leading-6 text-[var(--text-body)]">
-          {extractedText || 'OCR output will appear here after a screenshot is processed.'}
+        <pre className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-xl border border-[rgba(51,65,85,0.95)] bg-black/20 p-3 font-mono text-xs leading-6 text-[var(--text-body)]">
+          {extractedText || t('qa.ocrOutputPlaceholder')}
         </pre>
       </div>
     </aside>

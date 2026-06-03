@@ -3,23 +3,55 @@ import type { LanguageOption, SupportedLanguage } from './types';
 export const LANGUAGE_OPTIONS: LanguageOption[] = [
   {
     value: 'en',
-    label: 'English',
+    labelKey: 'locales.en',
     tesseractCode: 'eng',
     expansionBaseline: 0,
     rtl: false,
     scriptPattern: /[A-Za-z]/,
   },
   {
+    value: 'es',
+    labelKey: 'locales.es',
+    tesseractCode: 'spa+eng',
+    expansionBaseline: 18,
+    rtl: false,
+    scriptPattern: /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/,
+  },
+  {
+    value: 'fr',
+    labelKey: 'locales.fr',
+    tesseractCode: 'fra+eng',
+    expansionBaseline: 20,
+    rtl: false,
+    scriptPattern: /[A-Za-zÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸàâæçéèêëîïôœùûüÿ]/,
+  },
+  {
+    value: 'it',
+    labelKey: 'locales.it',
+    tesseractCode: 'ita+eng',
+    expansionBaseline: 16,
+    rtl: false,
+    scriptPattern: /[A-Za-zÀÈÉÌÍÎÒÓÙÚàèéìíîòóùú]/,
+  },
+  {
     value: 'de',
-    label: 'German',
+    labelKey: 'locales.de',
     tesseractCode: 'deu+eng',
     expansionBaseline: 35,
     rtl: false,
     scriptPattern: /[A-Za-zÄÖÜäöüß]/,
   },
   {
+    value: 'fi',
+    labelKey: 'locales.fi',
+    tesseractCode: 'fin+eng',
+    expansionBaseline: 32,
+    rtl: false,
+    scriptPattern: /[A-Za-zÅÄÖåäö]/,
+  },
+  {
     value: 'th',
-    label: 'Thai',
+    labelKey: 'locales.th',
     tesseractCode: 'tha+eng',
     expansionBaseline: 18,
     rtl: false,
@@ -27,7 +59,7 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   },
   {
     value: 'he',
-    label: 'Hebrew',
+    labelKey: 'locales.he',
     tesseractCode: 'heb+eng',
     expansionBaseline: 14,
     rtl: true,
@@ -35,7 +67,7 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   },
   {
     value: 'ar',
-    label: 'Arabic',
+    labelKey: 'locales.ar',
     tesseractCode: 'ara+eng',
     expansionBaseline: 16,
     rtl: true,
@@ -43,7 +75,7 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   },
   {
     value: 'ko',
-    label: 'Korean',
+    labelKey: 'locales.ko',
     tesseractCode: 'kor+eng',
     expansionBaseline: 10,
     rtl: false,
@@ -51,15 +83,39 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   },
   {
     value: 'ja',
-    label: 'Japanese',
+    labelKey: 'locales.ja',
     tesseractCode: 'jpn+eng',
     expansionBaseline: 8,
     rtl: false,
     scriptPattern: /[\u3040-\u30FF\u4E00-\u9FFF]/,
+  },
+  {
+    value: 'km',
+    labelKey: 'locales.km',
+    tesseractCode: 'khm+eng',
+    expansionBaseline: 18,
+    rtl: false,
+    scriptPattern: /[\u1780-\u17FF]/,
+  },
+  {
+    value: 'el',
+    labelKey: 'locales.el',
+    tesseractCode: 'ell+eng',
+    expansionBaseline: 14,
+    rtl: false,
+    scriptPattern: /[\u0370-\u03FF\u1F00-\u1FFF]/,
+  },
+  {
+    value: 'vi',
+    labelKey: 'locales.vi',
+    tesseractCode: 'vie+eng',
+    expansionBaseline: 22,
+    rtl: false,
+    scriptPattern:
+      /[A-Za-zĂÂĐÊÔƠƯăâđêôơưÀÁẠẢÃÈÉẸẺẼÌÍỊỈĨÒÓỌỎÕÙÚỤỦŨỲÝỴỶỸàáạảãèéẹẻẽìíịỉĩòóọỏõùúụủũỳýỵỷỹ]/,
   },
 ];
 
 export function getLanguageConfig(language: SupportedLanguage) {
   return LANGUAGE_OPTIONS.find((option) => option.value === language) ?? LANGUAGE_OPTIONS[0];
 }
-

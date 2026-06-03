@@ -1,5 +1,6 @@
 import { cn } from '../utils/cn';
 import type { DetectionIssue } from '../utils/types';
+import { useTranslation } from 'react-i18next';
 
 interface ImageInspectionCanvasProps {
   activeIssueId: string | null;
@@ -20,25 +21,27 @@ export function ImageInspectionCanvas({
   phase,
   status,
 }: ImageInspectionCanvasProps) {
+  const { t } = useTranslation();
+
   return (
-    <div className="panel-muted rounded-[1.75rem] p-3">
+    <div className="panel-muted cut-corner-panel rounded-[1.75rem] p-3">
       <div className="mb-4 flex items-center justify-between gap-3 px-2">
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--text-muted)]">Annotated preview</p>
+          <p className="text-xs uppercase tracking-[0.28em] text-[var(--tone-sky)]">{t('canvas.eyebrow')}</p>
           <p className="mt-1 text-sm text-[var(--text-body)]">
-            Overlay boxes mark suspicious copy regions on the selected sports UI surface.
+            {t('canvas.description')}
           </p>
         </div>
-        <div className="panel-chip rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[var(--text-body)]">
-          {phase === 'done' ? `${issues.length} flags` : status}
+        <div className="status-badge rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[var(--text-body)]">
+          {phase === 'done' ? t('qa.flagged', { count: issues.length }) : status}
         </div>
       </div>
 
-      <div className="grid-fade flex min-h-[420px] items-center justify-center rounded-[1.5rem] border border-white/8 bg-[linear-gradient(180deg,rgba(13,16,22,0.82)_0%,rgba(7,9,13,0.96)_100%)] p-4">
+      <div className="scan-stage grid-fade relative flex min-h-[420px] items-center justify-center rounded-[1.5rem] border border-white/8 p-4">
         {imageUrl && imageSize ? (
-          <div className="relative max-h-[70vh] overflow-hidden rounded-[1.35rem] border border-white/10 bg-black/30 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+          <div className="relative max-h-[70vh] overflow-hidden rounded-[1.35rem] border border-[rgba(51,65,85,0.95)] bg-black/30 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
             <img
-              alt="Uploaded UI screenshot"
+              alt={t('canvas.imageAlt')}
               className="block max-h-[70vh] w-auto max-w-full object-contain"
               src={imageUrl}
             />
@@ -73,15 +76,14 @@ export function ImageInspectionCanvas({
           </div>
         ) : (
           <div className="max-w-md text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-dashed border-white/12 bg-white/4 text-xl text-[var(--text-muted)]">
-              QA
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-dashed border-[rgba(59,130,246,0.3)] bg-[rgba(59,130,246,0.08)] text-xl font-semibold text-[var(--tone-sky)] shadow-[0_0_28px_rgba(59,130,246,0.12)]">
+              RUN
             </div>
             <h3 className="mt-6 text-lg font-semibold text-[var(--text-strong)]">
-              Upload a sports product screenshot to begin.
+              {t('canvas.emptyTitle')}
             </h3>
             <p className="mt-3 text-sm leading-6 text-[var(--text-body)]">
-              OCR output, language-specific heuristics, and flagged bounding boxes will appear here after you
-              add a PNG or JPG from a mobile app, watch UI, or metrics-heavy device screen.
+              {t('canvas.emptyDescription')}
             </p>
           </div>
         )}

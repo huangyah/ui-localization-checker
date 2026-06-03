@@ -1,0 +1,238 @@
+{
+  "languageSwitcher": {
+    "label": "UI 言語",
+    "options": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文",
+      "ja": "日本語",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
+  },
+  "locales": {
+    "en": "英語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "it": "イタリア語",
+    "de": "ドイツ語",
+    "fi": "フィンランド語",
+    "th": "タイ語",
+    "he": "ヘブライ語",
+    "ar": "アラビア語",
+    "ko": "韓国語",
+    "ja": "日本語",
+    "km": "クメール語",
+    "el": "ギリシャ語",
+    "vi": "ベトナム語"
+  },
+  "dashboard": {
+    "badge": "スポーツ向けローカリゼーション QA",
+    "subbadge": "トレーニングアプリとデバイス UI の多言語リリースレビュー",
+    "title": "各言語に出荷する前に、トレーニング・ウェアラブル・センサー UI を確認します。",
+    "description": "フィットネスアプリ、ウォッチ画面、GPS サマリー、メトリクス中心のフローのスクリーンショットを確認します。OCR が表示テキストを抽出し、オーバーフロー、RTL、プレースホルダー、切り詰め、フォントフォールバックのリスクを検出します。",
+    "chips": [
+      "トレーニングサマリー",
+      "ウェアラブル UI",
+      "メトリクスラベル",
+      "GPS / センサー画面"
+    ],
+    "currentPass": "現在のチェック",
+    "locale": "対象言語",
+    "flags": "検出数",
+    "high": "高",
+    "activeAsset": "現在のアセット:",
+    "activeAssetEmpty": "トレーニングまたはデバイスのスクリーンショットを待機中"
+  },
+  "status": {
+    "review": {
+      "awaiting": "レビュー対象の画面を待機中",
+      "preparing": "スクリーンショットを準備中",
+      "running": "OCR とレイアウトチェックを実行中",
+      "blocked": "レビューがブロックされています",
+      "findings": "ローカリゼーションレビュー用の結果を生成しました",
+      "clean": "目立つ問題は検出されませんでした"
+    },
+    "ocr": {
+      "awaiting": "スクリーンショットを待機中",
+      "preparing": "スクリーンショットを準備中",
+      "runningFor": "{{language}} に対して OCR を実行中",
+      "issuesDetected": "問題を検出しました",
+      "noIssues": "目立つ問題は検出されませんでした",
+      "failed": "OCR に失敗しました"
+    },
+    "engine": {
+      "loadingTesseractCore": "OCR コアを読み込み中",
+      "loadedTesseractCore": "OCR コアを読み込みました",
+      "initializingTesseract": "OCR エンジンを初期化中",
+      "initializedTesseract": "OCR エンジンの準備ができました",
+      "loadingLanguageTraineddata": "言語データを読み込み中",
+      "loadedLanguageTraineddata": "言語データを読み込みました",
+      "initializingApi": "OCR API を初期化中",
+      "initializedApi": "OCR API の準備ができました",
+      "recognizingText": "テキストを認識中"
+    }
+  },
+  "metrics": {
+    "findingsReady": "結果",
+    "highSeverity": "高重大度 {{count}} 件",
+    "noHighSeverity": "高重大度なし",
+    "ocrConfidence": "OCR 信頼度",
+    "inProgress": "進行中",
+    "latestPass": "最新の実行",
+    "expansionRisk": "拡張リスク",
+    "baseline": "{{language}} の基準値",
+    "scriptDirection": "文字方向",
+    "rtlChecks": "RTL ミラーチェック",
+    "ltrChecks": "標準チェック"
+  },
+  "appShell": {
+    "targetLocale": "対象言語",
+    "reviewWorkspace": "レビュー ワークスペース",
+    "reviewWorkspaceTitle": "多言語リリース引き渡し前にスクリーンショットを検証する",
+    "reviewWorkspaceDescription": "OCR エンジンやヒューリスティックを変更せずに、トレーニングフロー、ラン後サマリー、ウェアラブルのペアリング画面、メトリクスカードに対して集中的な QA を実行します。",
+    "reviewSummary": "レビュー概要",
+    "ocrStatus": "OCR ステータス",
+    "locale": "言語",
+    "screenshot": "スクリーンショット",
+    "loaded": "読み込み済み",
+    "pending": "未設定",
+    "bestInputs": "推奨入力",
+    "bestInputItems": [
+      "メタデータラベルが詰まった結果カード。",
+      "ウェアラブルのオンボーディングやアクセサリのペアリングフロー。",
+      "動的な値を含む地図、GPS、センサーの状態画面。"
+    ],
+    "releaseHandoff": "リリース引き渡し",
+    "releaseHandoffTitle": "この実行で見つけたい内容",
+    "releaseCards": [
+      {
+        "title": "コンパクトな画面でのレイアウトリスク",
+        "description": "カード、タブ、ウォッチサイズの UI では、長い翻訳がメトリクスやアイコンと競合します。"
+      },
+      {
+        "title": "動的テキストとプレースホルダー",
+        "description": "コーチングメッセージ、達成状態、センサー値など、変数と翻訳テキストが混在する箇所。"
+      },
+      {
+        "title": "スクリプト対応と可読性",
+        "description": "言語拡張後にのみ現れるフォントフォールバック、アクセントの欠け、方向性の問題。"
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "スクリーンショット入力",
+    "title": "スポーツアプリまたはデバイス UI の PNG / JPG スクリーンショットをアップロード",
+    "description": "トレーニングサマリー、ウェアラブル設定、リカバリーフロー、メトリクスダッシュボードなど、本番に近いスクリーンショットを使用してください。OCR が表示テキストを抽出し、ローカリゼーションリスクを画面上に直接示します。",
+    "currentAsset": "現在のアセット:",
+    "button": "スクリーンショットを選択",
+    "invalidFile": "続行するには PNG または JPG のスクリーンショットをアップロードしてください。",
+    "loadFailed": "アップロードした画像を読み込めませんでした。"
+  },
+  "canvas": {
+    "eyebrow": "注釈付きプレビュー",
+    "description": "赤い枠が、選択したスポーツ UI 上の疑わしいテキスト領域を示します。",
+    "emptyTitle": "スポーツ製品のスクリーンショットをアップロードして開始します。",
+    "emptyDescription": "モバイルアプリ、ウォッチ UI、メトリクス中心の画面から PNG / JPG を追加すると、OCR 結果、言語別ヒューリスティック、赤枠の注釈がここに表示されます。",
+    "imageAlt": "アップロードされた UI スクリーンショット"
+  },
+  "qa": {
+    "title": "自動リリース検出結果",
+    "subtitle": "{{language}} を OCR 抽出結果とスポーツ UI 向けローカリゼーションヒューリスティックで確認しています。",
+    "flagged": "{{count}} 件を検出",
+    "currentAsset": "現在のアセット",
+    "noAsset": "スクリーンショットが選択されていません",
+    "ocrInProgress": "OCR 実行中",
+    "readyToReview": "レビュー可能",
+    "standby": "待機中",
+    "waitingTitle": "レビュー対象の画面を待機中",
+    "waitingDescription": "トレーニングアプリ、ウェアラブルフロー、メトリクスダッシュボードのスクリーンショットを追加すると、OCR テキストと注釈を生成できます。",
+    "issue": "問題 {{index}}",
+    "suggestedFix": "推奨修正:",
+    "characterExpansionRisk": "文字拡張リスク {{risk}}%",
+    "extractedText": "抽出テキスト",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "この実行では目立つ問題は検出されませんでした。",
+    "noIssuesDescription": "この言語では、ヒューリスティックによりオーバーフロー、プレースホルダー順序、クリッピングの問題は検出されませんでした。最終的な手動確認は引き続き推奨されます。",
+    "ocrOutputPlaceholder": "スクリーンショット処理後に OCR 出力がここに表示されます。",
+    "categories": {
+      "overflow": "文字オーバーフロー",
+      "rtl": "RTL レイアウト",
+      "placeholder": "プレースホルダー順序",
+      "lineHeight": "行高クリッピング",
+      "truncation": "2 行目の切り詰め",
+      "fontFallback": "フォントフォールバック"
+    },
+    "severity": {
+      "High": "高",
+      "Medium": "中",
+      "Low": "低"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "レビューガイダンス",
+    "title": "スポーツ UI 向けリリースチェック",
+    "expansion": "拡張",
+    "baseline": "基準値 {{value}}%",
+    "expansionDescription": "情報量の多いトレーニングカード、短いラベル、コンパクトなウォッチレイアウトを優先してください。",
+    "direction": "方向",
+    "rtl": "RTL レビュー",
+    "ltr": "LTR レビュー",
+    "rtlDescription": "すべての検出箇所で、余白のミラーリング、アイコン順序、方向性メトリクスを確認してください。",
+    "ltrDescription": "情報量の多い画面で、左寄せ、数値書式、ラベルのリズムを確認してください。",
+    "prioritySurfaces": "優先画面",
+    "priorityTitle": "ウォッチ、GPS、リカバリー",
+    "priorityDescription": "トレーニングサマリー、ペースカード、心拍数状態、アクセサリ設定フローを重点的に確認してください。",
+    "manualPass": "手動レビュー",
+    "manualPassItems": [
+      "単位ラベル、ペース略語、センサー名称の整合性を確認する。",
+      "目標達成画面やトレーニング詳細画面で CTA の幅を確認する。",
+      "動的なコーチングメッセージやサマリーカード内のプレースホルダーを確認する。"
+    ],
+    "escalateWhen": "次の場合はエスカレーション",
+    "escalateItems": [
+      "高重大度の問題がウォッチフェイス制約やラン後サマリーに影響する場合。",
+      "フォントフォールバックにより、モバイルとウェアラブルでメトリクスの印象が変わる場合。",
+      "RTL 順序により、アクティビティ、リカバリー、地図画面のアイコン + 値の組み合わせが崩れる場合。"
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR が抽出したテキストが非常に少ない",
+      "description": "このスクリーンショットでは、完全なローカリゼーション QA に十分なテキストを抽出できませんでした。",
+      "fix": "より高解像度のスクリーンショットを試すか、UI テキストの近くまで切り抜いてから OCR を再実行してください。"
+    },
+    "overflow": {
+      "title": "テキストが本来のコンテナを超えている可能性があります",
+      "description": "\"{{text}}\" の OCR ボックスは異常に広く、周囲の端に近づいています。これはローカライズ UI でよく見られるオーバーフローの兆候です。",
+      "fix": "コンテナ幅を広げる、折り返しを許可する、または翻訳文を短くしてください。"
+    },
+    "rtl": {
+      "title": "RTL テキストが左寄せまたは視覚的にずれて見えます",
+      "description": "{{language}} の行 \"{{text}}\" が LTR 要素のように配置されており、ミラーリングまたは整列の問題が考えられます。",
+      "fix": "コンテナを右揃えにし、方向性の余白をミラーリングし、アイコン + テキストの順序を確認してください。"
+    },
+    "placeholder": {
+      "title": "この言語ではプレースホルダー順序が崩れる可能性があります",
+      "description": "\"{{text}}\" にプレースホルダーが検出されました。方向混在や順序変更されたプレースホルダーは文構造を壊しやすくなります。",
+      "fix": "プレースホルダー順序を明示し、翻訳者が意味を変えずに安全に並べ替えられることを確認してください。"
+    },
+    "lineHeight": {
+      "title": "行高が詰まりすぎているようです",
+      "description": "テキスト行 \"{{text}}\" は周辺の OCR 行に比べて縦方向の余白が少なく、アクセント、ディセンダ、RTL マークが切れる可能性があります。",
+      "fix": "特にスクリプト固有の記号を含む場合は、行高または縦方向の余白を増やしてください。"
+    },
+    "truncation": {
+      "title": "2 行目が切り詰められている可能性があります",
+      "description": "続く行 \"{{text}}\" が前の行より急に短くなっており、内容がクランプまたは非表示になっている可能性があります。",
+      "fix": "行数制限を緩める、コンテナの高さを増やす、または翻訳文を短くしてください。"
+    },
+    "fontFallback": {
+      "title": "このスクリプトでフォントフォールバックのリスクが検出されました",
+      "descriptionSized": "\"{{text}}\" でグリフサイズの不自然なばらつきが見つかりました。UI が別のフォントにフォールバックしている可能性があります。",
+      "descriptionMissing": "OCR が想定される {{language}} の文字を十分に認識できませんでした。これはフォントフォールバックやスクリプトカバレッジ不足の可能性があります。",
+      "fix": "このスクリプト用の明示的なフォントスタックを追加し、フォールバックフォントのメトリクスとトーンを確認してください。"
+    }
+  }
+}

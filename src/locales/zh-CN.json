@@ -1,0 +1,238 @@
+{
+  "languageSwitcher": {
+    "label": "UI 语言",
+    "options": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文",
+      "ja": "日本語",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
+  },
+  "locales": {
+    "en": "英语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "it": "意大利语",
+    "de": "德语",
+    "fi": "芬兰语",
+    "th": "泰语",
+    "he": "希伯来语",
+    "ar": "阿拉伯语",
+    "ko": "韩语",
+    "ja": "日语",
+    "km": "高棉语",
+    "el": "希腊语",
+    "vi": "越南语"
+  },
+  "dashboard": {
+    "badge": "运动本地化 QA",
+    "subbadge": "面向训练应用与设备 UI 的多语言发布审核",
+    "title": "在每个语言版本上线前，先审查训练、穿戴和传感器驱动的 UI。",
+    "description": "检查健身应用、手表界面、GPS 摘要和高密度数据流程的截图。OCR 会提取可见文字，然后帮助本地化团队发现溢出、RTL、占位符、截断和字体回退风险。",
+    "chips": [
+      "训练摘要",
+      "穿戴设备 UI",
+      "指标标签",
+      "GPS 与传感器界面"
+    ],
+    "currentPass": "当前检查",
+    "locale": "目标语言",
+    "flags": "问题数",
+    "high": "高",
+    "activeAsset": "当前素材：",
+    "activeAssetEmpty": "等待上传训练或设备截图"
+  },
+  "status": {
+    "review": {
+      "awaiting": "等待审核素材",
+      "preparing": "正在准备截图",
+      "running": "正在执行 OCR 和布局检查",
+      "blocked": "审核已阻塞",
+      "findings": "本地化审核结果已生成",
+      "clean": "启发式检查未发现明显问题"
+    },
+    "ocr": {
+      "awaiting": "等待截图",
+      "preparing": "正在准备截图",
+      "runningFor": "正在为 {{language}} 执行 OCR",
+      "issuesDetected": "已发现问题",
+      "noIssues": "未发现明显问题",
+      "failed": "OCR 失败"
+    },
+    "engine": {
+      "loadingTesseractCore": "正在加载 OCR 核心",
+      "loadedTesseractCore": "OCR 核心已加载",
+      "initializingTesseract": "正在初始化 OCR 引擎",
+      "initializedTesseract": "OCR 引擎已就绪",
+      "loadingLanguageTraineddata": "正在加载语言数据",
+      "loadedLanguageTraineddata": "语言数据已加载",
+      "initializingApi": "正在初始化 OCR API",
+      "initializedApi": "OCR API 已就绪",
+      "recognizingText": "正在识别文字"
+    }
+  },
+  "metrics": {
+    "findingsReady": "已生成问题",
+    "highSeverity": "{{count}} 个高严重度",
+    "noHighSeverity": "无高严重度",
+    "ocrConfidence": "OCR 置信度",
+    "inProgress": "进行中",
+    "latestPass": "最新结果",
+    "expansionRisk": "扩展风险",
+    "baseline": "{{language}} 基线",
+    "scriptDirection": "文字方向",
+    "rtlChecks": "镜像布局检查",
+    "ltrChecks": "标准布局检查"
+  },
+  "appShell": {
+    "targetLocale": "目标语言",
+    "reviewWorkspace": "审核工作区",
+    "reviewWorkspaceTitle": "在多语言发布交接前验证截图",
+    "reviewWorkspaceDescription": "针对训练流程、运动结果摘要、穿戴设备配对页面和高密度指标卡片进行 QA，而不改动现有 OCR 与问题检测引擎。",
+    "reviewSummary": "审核摘要",
+    "ocrStatus": "OCR 状态",
+    "locale": "语言",
+    "screenshot": "截图",
+    "loaded": "已加载",
+    "pending": "待上传",
+    "bestInputs": "推荐素材",
+    "bestInputItems": [
+      "带有紧凑元数据标签的运动结果卡片。",
+      "穿戴设备引导或配件配对流程。",
+      "带动态数值的地图、GPS 和传感器摘要界面。"
+    ],
+    "releaseHandoff": "发布交接",
+    "releaseHandoffTitle": "本轮检查重点关注",
+    "releaseCards": [
+      {
+        "title": "紧凑界面的布局风险",
+        "description": "在卡片、标签页和手表尺寸布局中，较长译文会与指标和图标竞争空间。"
+      },
+      {
+        "title": "动态文案与占位符",
+        "description": "教练提示、成就状态和传感器读数等内容，会将变量与本地化文本混合。"
+      },
+      {
+        "title": "字形支持与可读性",
+        "description": "仅在语言扩展后出现的字体回退、重音裁切和方向性问题。"
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "截图导入",
+    "title": "上传来自运动应用或设备 UI 的 PNG / JPG 截图",
+    "description": "建议使用接近生产环境的训练摘要、穿戴设置、恢复流程或指标面板截图。OCR 会提取可见文字，并将潜在本地化风险直接映射到界面上。",
+    "currentAsset": "当前素材：",
+    "button": "选择截图",
+    "invalidFile": "请上传 PNG 或 JPG 格式的截图。",
+    "loadFailed": "加载上传图片失败。"
+  },
+  "canvas": {
+    "eyebrow": "标注预览",
+    "description": "覆盖框会标出当前运动产品界面中可疑的文本区域。",
+    "emptyTitle": "上传一张运动产品截图开始检查。",
+    "emptyDescription": "添加来自移动应用、手表 UI 或高密度指标界面的 PNG / JPG 后，这里会显示 OCR 结果、语言启发式分析以及红框标注。",
+    "imageAlt": "已上传的 UI 截图"
+  },
+  "qa": {
+    "title": "自动化发布问题",
+    "subtitle": "正在基于 OCR 提取结果和运动 UI 本地化启发式规则审核 {{language}}。",
+    "flagged": "{{count}} 个问题",
+    "currentAsset": "当前素材",
+    "noAsset": "尚未选择截图",
+    "ocrInProgress": "OCR 进行中",
+    "readyToReview": "可开始审核",
+    "standby": "待命",
+    "waitingTitle": "等待审核素材",
+    "waitingDescription": "添加训练应用、穿戴流程或指标面板截图后，才能为此语言生成 OCR 文本和问题标注。",
+    "issue": "问题 {{index}}",
+    "suggestedFix": "建议修复：",
+    "characterExpansionRisk": "字符扩展风险 {{risk}}%",
+    "extractedText": "识别文本",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "本轮检查未发现明显问题。",
+    "noIssuesDescription": "启发式规则未检测到溢出、占位符顺序或裁切问题。仍建议对排版、间距和品牌语气做最终人工复核。",
+    "ocrOutputPlaceholder": "处理截图后，OCR 输出会显示在这里。",
+    "categories": {
+      "overflow": "文字溢出",
+      "rtl": "RTL 排版",
+      "placeholder": "占位符顺序",
+      "lineHeight": "行高裁切",
+      "truncation": "第二行截断",
+      "fontFallback": "字体回退"
+    },
+    "severity": {
+      "High": "高",
+      "Medium": "中",
+      "Low": "低"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "审核指引",
+    "title": "面向运动 UI 的发布检查",
+    "expansion": "扩展",
+    "baseline": "{{value}}% 基线",
+    "expansionDescription": "优先检查高密度训练卡片、分拆标签和紧凑手表布局。",
+    "direction": "方向",
+    "rtl": "RTL 审核",
+    "ltr": "LTR 审核",
+    "rtlDescription": "检查所有已标记界面的镜像边距、图标顺序和方向性指标。",
+    "ltrDescription": "确认数据密集界面的左对齐、数字格式和标签节奏。",
+    "prioritySurfaces": "优先界面",
+    "priorityTitle": "手表、GPS、恢复",
+    "priorityDescription": "重点关注训练摘要、配速卡片、心率状态和配件设置流程。",
+    "manualPass": "人工复核",
+    "manualPassItems": [
+      "检查单位标签、配速缩写和传感器命名是否一致。",
+      "确认目标完成页和训练详情页 CTA 宽度是否足够。",
+      "检查动态教练消息和摘要卡片中的占位符。"
+    ],
+    "escalateWhen": "以下情况需升级处理",
+    "escalateItems": [
+      "高严重度问题影响表盘约束或跑步后摘要。",
+      "字体回退导致手机端和穿戴端的视觉度量不一致。",
+      "RTL 顺序破坏了活动、恢复或地图界面上的图标与数值组合。"
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR 提取到的文字过少",
+      "description": "该截图未能提供足够文本，无法完成完整的本地化 QA 检查。",
+      "fix": "请尝试使用更高分辨率的截图，或裁剪到更接近界面文案的区域后再运行 OCR。"
+    },
+    "overflow": {
+      "title": "文字可能超出预期容器边界",
+      "description": "“{{text}}” 的 OCR 框异常宽，并接近周围边缘，这通常是本地化 UI 中文字溢出的信号。",
+      "fix": "增加容器宽度、允许换行，或缩短该界面的本地化文案。"
+    },
+    "rtl": {
+      "title": "RTL 文本看起来左对齐或视觉错位",
+      "description": "{{language}} 文本行“{{text}}”的位置更像 LTR 元素，可能存在镜像或对齐问题。",
+      "fix": "将容器右对齐，镜像方向性间距，并检查 RTL 渲染下图标与文字顺序。"
+    },
+    "placeholder": {
+      "title": "该语言中的占位符顺序可能有问题",
+      "description": "在“{{text}}”中检测到占位符。混合方向或重新排序的占位符通常会破坏本地化句子结构。",
+      "fix": "使用显式占位符顺序，并确认译者可安全调整顺序而不改变含义。"
+    },
+    "lineHeight": {
+      "title": "该文本的行高看起来过紧",
+      "description": "文本行“{{text}}”相较于相邻 OCR 行垂直空间有限，可能裁切重音、下行字母或 RTL 标记。",
+      "fix": "增加该组件的行高或垂直内边距，尤其是包含脚本特有字形标记时。"
+    },
+    "truncation": {
+      "title": "第二行文字可能被截断",
+      "description": "后续文本行“{{text}}”比上一行短得很突然，这通常意味着内容被截断或隐藏。",
+      "fix": "放宽行数限制、增加容器高度，或在发布前缩短本地化文案。"
+    },
+    "fontFallback": {
+      "title": "检测到该脚本的字体回退风险",
+      "descriptionSized": "“{{text}}” 的字形尺寸异常不一致，这可能意味着 UI 回退到了次级字体。",
+      "descriptionMissing": "OCR 未能可靠识别预期的 {{language}} 字符，这可能表示字体回退或脚本覆盖不足。",
+      "fix": "为该脚本添加明确的字体栈，并确认回退字体在度量和风格上符合预期。"
+    }
+  }
+}

@@ -5,7 +5,21 @@ export interface BoundingBox {
   height: number;
 }
 
-export type SupportedLanguage = 'en' | 'de' | 'th' | 'he' | 'ar' | 'ko' | 'ja';
+export type SupportedLanguage =
+  | 'en'
+  | 'es'
+  | 'fr'
+  | 'it'
+  | 'de'
+  | 'fi'
+  | 'th'
+  | 'he'
+  | 'ar'
+  | 'ko'
+  | 'ja'
+  | 'km'
+  | 'el'
+  | 'vi';
 
 export interface OcrWord {
   id: string;
@@ -53,7 +67,7 @@ export interface DetectionIssue {
 
 export interface LanguageOption {
   expansionBaseline: number;
-  label: string;
+  labelKey: string;
   rtl: boolean;
   scriptPattern: RegExp;
   tesseractCode: string;

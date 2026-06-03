@@ -1,0 +1,238 @@
+{
+  "languageSwitcher": {
+    "label": "UI-Sprache",
+    "options": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文",
+      "ja": "日本語",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
+  },
+  "locales": {
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "it": "Italienisch",
+    "de": "Deutsch",
+    "fi": "Finnisch",
+    "th": "Thailändisch",
+    "he": "Hebräisch",
+    "ar": "Arabisch",
+    "ko": "Koreanisch",
+    "ja": "Japanisch",
+    "km": "Khmer",
+    "el": "Griechisch",
+    "vi": "Vietnamesisch"
+  },
+  "dashboard": {
+    "badge": "Sport-Lokalisierungs-QA",
+    "subbadge": "Mehrsprachige Release-Prüfung für Trainings-Apps und Geräte-UI",
+    "title": "Prüfen Sie Trainings-, Wearable- und sensorgetriebene UI, bevor sie in jede Sprache ausgeliefert wird.",
+    "description": "Untersuchen Sie Screenshots aus Fitness-Apps, Watch-Flächen, GPS-Zusammenfassungen und metriklastigen Produktabläufen. OCR extrahiert den sichtbaren Text und erkennt Risiken bei Overflow, RTL, Platzhaltern, Trunkierung und Font-Fallback.",
+    "chips": [
+      "Trainingszusammenfassungen",
+      "Wearable-UI",
+      "Metrik-Labels",
+      "GPS- und Sensorbildschirme"
+    ],
+    "currentPass": "Aktueller Durchlauf",
+    "locale": "Zielsprache",
+    "flags": "Funde",
+    "high": "Hoch",
+    "activeAsset": "Aktives Asset:",
+    "activeAssetEmpty": "Wartet auf einen Trainings- oder Gerätescreenshot"
+  },
+  "status": {
+    "review": {
+      "awaiting": "Wartet auf Prüfungsoberfläche",
+      "preparing": "Screenshot wird vorbereitet",
+      "running": "OCR und Layout-Prüfungen laufen",
+      "blocked": "Prüfung blockiert",
+      "findings": "Ergebnisse bereit für die Lokalisierungsprüfung",
+      "clean": "Keine offensichtlichen Probleme erkannt"
+    },
+    "ocr": {
+      "awaiting": "Wartet auf Screenshot",
+      "preparing": "Screenshot wird vorbereitet",
+      "runningFor": "OCR läuft für {{language}}",
+      "issuesDetected": "Probleme erkannt",
+      "noIssues": "Keine offensichtlichen Probleme erkannt",
+      "failed": "OCR fehlgeschlagen"
+    },
+    "engine": {
+      "loadingTesseractCore": "OCR-Kern wird geladen",
+      "loadedTesseractCore": "OCR-Kern geladen",
+      "initializingTesseract": "OCR-Engine wird initialisiert",
+      "initializedTesseract": "OCR-Engine bereit",
+      "loadingLanguageTraineddata": "Sprachdaten werden geladen",
+      "loadedLanguageTraineddata": "Sprachdaten geladen",
+      "initializingApi": "OCR-API wird initialisiert",
+      "initializedApi": "OCR-API bereit",
+      "recognizingText": "Text wird erkannt"
+    }
+  },
+  "metrics": {
+    "findingsReady": "Ergebnisse bereit",
+    "highSeverity": "{{count}} mit hoher Priorität",
+    "noHighSeverity": "Keine hohe Priorität",
+    "ocrConfidence": "OCR-Vertrauen",
+    "inProgress": "In Bearbeitung",
+    "latestPass": "Letzter Durchlauf",
+    "expansionRisk": "Expansionsrisiko",
+    "baseline": "{{language}}-Basis",
+    "scriptDirection": "Schriftrichtung",
+    "rtlChecks": "Gespiegelte RTL-Prüfungen",
+    "ltrChecks": "Standardprüfungen"
+  },
+  "appShell": {
+    "targetLocale": "Zielsprache",
+    "reviewWorkspace": "Prüfbereich",
+    "reviewWorkspaceTitle": "Validieren Sie Screenshots vor der mehrsprachigen Übergabe",
+    "reviewWorkspaceDescription": "Führen Sie einen fokussierten QA-Durchlauf für Trainingsflüsse, Post-Run-Zusammenfassungen, Wearable-Pairing und metriklastige Karten aus, ohne OCR-Engine oder Heuristik zu ändern.",
+    "reviewSummary": "Prüfungsübersicht",
+    "ocrStatus": "OCR-Status",
+    "locale": "Sprache",
+    "screenshot": "Screenshot",
+    "loaded": "Geladen",
+    "pending": "Ausstehend",
+    "bestInputs": "Empfohlene Eingaben",
+    "bestInputItems": [
+      "Ergebnis-Karten mit kompakten Metadatenlabels.",
+      "Wearable-Onboarding oder Zubehör-Pairing-Flüsse.",
+      "Karten-, GPS- und Sensorzustände mit dynamischen Werten."
+    ],
+    "releaseHandoff": "Release-Handover",
+    "releaseHandoffTitle": "Worauf dieser Durchlauf abzielt",
+    "releaseCards": [
+      {
+        "title": "Layout-Risiko auf kompakten Flächen",
+        "description": "Karten, Tabs und watchgroße Layouts, in denen längere Übersetzungen mit Metriken und Icons konkurrieren."
+      },
+      {
+        "title": "Dynamischer Text und Platzhalter",
+        "description": "Coaching-Nachrichten, Erfolgszustände und Sensorwerte, die Variablen mit lokalisiertem Text mischen."
+      },
+      {
+        "title": "Script-Unterstützung und Lesbarkeit",
+        "description": "Font-Fallback, abgeschnittene Akzente und Richtungsprobleme, die erst nach Expansion sichtbar werden."
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "Screenshot-Aufnahme",
+    "title": "Laden Sie einen PNG- oder JPG-Screenshot aus einer Sport-App oder Geräte-UI hoch",
+    "description": "Verwenden Sie produktionsnahe Screenshots aus Trainingszusammenfassungen, Wearable-Setup, Recovery-Flows oder Metrik-Dashboards. OCR extrahiert sichtbaren Text und ordnet Lokalisierungsrisiken direkt der Oberfläche zu.",
+    "currentAsset": "Aktives Asset:",
+    "button": "Screenshot wählen",
+    "invalidFile": "Laden Sie einen PNG- oder JPG-Screenshot hoch, um fortzufahren.",
+    "loadFailed": "Das hochgeladene Bild konnte nicht geladen werden."
+  },
+  "canvas": {
+    "eyebrow": "Annotierte Vorschau",
+    "description": "Rahmen markieren verdächtige Textbereiche auf der ausgewählten Sport-UI.",
+    "emptyTitle": "Laden Sie einen Screenshot eines Sportprodukts hoch, um zu beginnen.",
+    "emptyDescription": "OCR-Ergebnisse, sprachspezifische Heuristiken und markierte Bounding-Boxen erscheinen hier, nachdem Sie eine PNG- oder JPG-Datei aus App, Watch-UI oder Metrikscreen hinzugefügt haben.",
+    "imageAlt": "Hochgeladener UI-Screenshot"
+  },
+  "qa": {
+    "title": "Automatisierte Release-Ergebnisse",
+    "subtitle": "{{language}} wird mit OCR-Extraktion und Sport-UI-Lokalisierungsheuristiken geprüft.",
+    "flagged": "{{count}} markiert",
+    "currentAsset": "Aktives Asset",
+    "noAsset": "Kein Screenshot ausgewählt",
+    "ocrInProgress": "OCR läuft",
+    "readyToReview": "Bereit zur Prüfung",
+    "standby": "Bereit",
+    "waitingTitle": "Wartet auf eine Prüfungsoberfläche",
+    "waitingDescription": "Fügen Sie einen Screenshot aus Trainings-App, Wearable-Flow oder Metrik-Dashboard hinzu, um OCR-Text und Annotationen zu erzeugen.",
+    "issue": "Problem {{index}}",
+    "suggestedFix": "Empfohlene Behebung:",
+    "characterExpansionRisk": "Zeichenerweiterungsrisiko {{risk}}%",
+    "extractedText": "Extrahierter Text",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "In diesem Durchlauf wurden keine offensichtlichen Probleme erkannt.",
+    "noIssuesDescription": "Die Heuristiken haben für diese Sprache weder Overflow noch Platzhalter-Reihenfolge oder Clipping erkannt. Eine abschließende manuelle Prüfung bleibt empfohlen.",
+    "ocrOutputPlaceholder": "Die OCR-Ausgabe erscheint hier, nachdem ein Screenshot verarbeitet wurde.",
+    "categories": {
+      "overflow": "Text-Overflow",
+      "rtl": "RTL-Layout",
+      "placeholder": "Platzhalter-Reihenfolge",
+      "lineHeight": "Zeilenhöhen-Clipping",
+      "truncation": "Trunkierung in Zeile 2",
+      "fontFallback": "Font-Fallback"
+    },
+    "severity": {
+      "High": "Hoch",
+      "Medium": "Mittel",
+      "Low": "Niedrig"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "Prüfleitfaden",
+    "title": "Release-Checks für Sport-UI",
+    "expansion": "Expansion",
+    "baseline": "{{value}}%-Basis",
+    "expansionDescription": "Priorisieren Sie dichte Trainingskarten, kompakte Labels und enge Watch-Layouts.",
+    "direction": "Richtung",
+    "rtl": "RTL-Prüfung",
+    "ltr": "LTR-Prüfung",
+    "rtlDescription": "Prüfen Sie gespiegelte Abstände, Icon-Reihenfolge und Richtungsmetriken auf allen markierten Flächen.",
+    "ltrDescription": "Bestätigen Sie Linksbündigkeit, Zahlenformat und Label-Rhythmus auf dichten Screens.",
+    "prioritySurfaces": "Priorisierte Flächen",
+    "priorityTitle": "Watch, GPS, Recovery",
+    "priorityDescription": "Konzentrieren Sie sich auf Trainingszusammenfassungen, Pace-Karten, Herzfrequenzzustände und Zubehör-Setup.",
+    "manualPass": "Manuelle Prüfung",
+    "manualPassItems": [
+      "Prüfen Sie Einheitenlabels, Pace-Abkürzungen und Sensorbenennungen.",
+      "Prüfen Sie die CTA-Breite auf Ziel-erreicht- und Trainingsdetail-Screens.",
+      "Prüfen Sie Platzhalter in dynamischen Coaching-Nachrichten und Zusammenfassungskarten."
+    ],
+    "escalateWhen": "Eskaliert werden sollte, wenn",
+    "escalateItems": [
+      "Probleme hoher Priorität Watch-Face-Beschränkungen oder Post-Run-Zusammenfassungen betreffen.",
+      "Font-Fallback den Metrikton zwischen Mobil und Wearable verändert.",
+      "RTL-Reihenfolge Icon-plus-Wert-Paare auf Aktivitäts-, Recovery- oder Karten-Screens zerstört."
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR hat sehr wenig Text extrahiert",
+      "description": "Der Screenshot lieferte nicht genug Text für einen vollständigen Lokalisierungs-QA-Durchlauf.",
+      "fix": "Versuchen Sie einen Screenshot mit höherer Auflösung oder schneiden Sie näher am UI-Text zu, bevor Sie OCR erneut ausführen."
+    },
+    "overflow": {
+      "title": "Text überschreitet wahrscheinlich seinen vorgesehenen Container",
+      "description": "Die OCR-Box für „{{text}}“ ist ungewöhnlich breit und nähert sich dem Rand, ein typisches Signal für Overflow in lokalisierter UI.",
+      "fix": "Vergrößern Sie den Container, erlauben Sie Umbruch oder kürzen Sie den lokalisierten Text."
+    },
+    "rtl": {
+      "title": "RTL-Text wirkt linksbündig oder visuell falsch ausgerichtet",
+      "description": "Die {{language}}-Zeile „{{text}}“ ist wie ein LTR-Element positioniert, was auf Spiegelungs- oder Ausrichtungsprobleme hindeuten kann.",
+      "fix": "Richten Sie den Container rechts aus, spiegeln Sie Richtungsabstände und prüfen Sie die Icon-plus-Text-Reihenfolge."
+    },
+    "placeholder": {
+      "title": "Platzhalter-Reihenfolge kann in dieser Sprache brechen",
+      "description": "In „{{text}}“ wurden Platzhalter erkannt. Gemischte Richtungen oder umsortierte Platzhalter brechen oft die Satzstruktur.",
+      "fix": "Verwenden Sie eine explizite Platzhalter-Reihenfolge und prüfen Sie, ob Übersetzer sie sicher umstellen können."
+    },
+    "lineHeight": {
+      "title": "Die Zeilenhöhe wirkt zu knapp",
+      "description": "Die Textzeile „{{text}}“ hat im Vergleich zu benachbarten OCR-Zeilen wenig vertikalen Raum, wodurch Akzente, Unterlängen oder RTL-Markierungen abgeschnitten werden können.",
+      "fix": "Erhöhen Sie Zeilenhöhe oder vertikales Padding, besonders bei scriptspezifischen Glyphen."
+    },
+    "truncation": {
+      "title": "Die zweite Zeile könnte abgeschnitten sein",
+      "description": "Die Folgezeile „{{text}}“ ist abrupt kürzer als die vorherige, was oft auf geklemmten oder versteckten Inhalt hinweist.",
+      "fix": "Lockern Sie Zeilenbegrenzungen, erhöhen Sie die Containerhöhe oder kürzen Sie den lokalisierten Text."
+    },
+    "fontFallback": {
+      "title": "Font-Fallback-Risiko für dieses Script erkannt",
+      "descriptionSized": "In „{{text}}“ wurden ungewöhnlich inkonsistente Glyphengrößen erkannt, was bei einem Fallback auf eine Sekundärschrift passieren kann.",
+      "descriptionMissing": "OCR konnte die erwarteten {{language}}-Zeichen nicht zuverlässig erkennen, was auf Fallback oder unzureichende Script-Abdeckung hindeuten kann.",
+      "fix": "Fügen Sie einen expliziten Font-Stack für dieses Script hinzu und prüfen Sie, ob die Fallback-Schrift Ton und Metriken erfüllt."
+    }
+  }
+}

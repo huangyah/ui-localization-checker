@@ -1,0 +1,229 @@
+{
+  "languageSwitcher": {
+    "label": "Käyttöliittymän kieli"
+  },
+  "locales": {
+    "en": "Englanti",
+    "es": "Espanja",
+    "fr": "Ranska",
+    "it": "Italia",
+    "de": "Saksa",
+    "fi": "Suomi",
+    "th": "Thai",
+    "he": "Heprea",
+    "ar": "Arabia",
+    "ko": "Korea",
+    "ja": "Japani",
+    "km": "Khmer",
+    "el": "Kreikka",
+    "vi": "Vietnam"
+  },
+  "dashboard": {
+    "badge": "Urheilulokalisoinnin QA",
+    "subbadge": "Monikielinen julkaisuarviointi harjoittelusovelluksille ja laite-UI:lle",
+    "title": "Tarkista harjoittelu-, wearable- ja sensoriohjattu käyttöliittymä ennen julkaisua jokaisella kielellä.",
+    "description": "Tarkastele fitness-sovellusten, kellonäkymien, GPS-yhteenvetojen ja metriikkapainotteisten virtojen kuvakaappauksia. OCR poimii näkyvän tekstin ja nostaa esiin overflow-, RTL-, placeholder-, katkaisu- ja font fallback -riskit.",
+    "chips": [
+      "Harjoitteluyhteenvedot",
+      "Wearable-laitteiden UI",
+      "Mittarien nimet",
+      "GPS- ja sensorinäytöt"
+    ],
+    "currentPass": "Nykyinen tarkistus",
+    "locale": "Kohdekieli",
+    "flags": "Havainnot",
+    "high": "Korkea",
+    "activeAsset": "Aktiivinen resurssi:",
+    "activeAssetEmpty": "Odottaa harjoittelu- tai laitekuvakaappausta"
+  },
+  "status": {
+    "review": {
+      "awaiting": "Odottaa tarkistettavaa näkymää",
+      "preparing": "Valmistellaan kuvakaappausta",
+      "running": "OCR ja asettelutarkistukset käynnissä",
+      "blocked": "Tarkistus estetty",
+      "findings": "Tulokset valmiina lokalisointitarkistukseen",
+      "clean": "Selviä ongelmia ei havaittu"
+    },
+    "ocr": {
+      "awaiting": "Odottaa kuvakaappausta",
+      "preparing": "Valmistellaan kuvakaappausta",
+      "runningFor": "OCR käynnissä kielelle {{language}}",
+      "issuesDetected": "Ongelmia havaittu",
+      "noIssues": "Selviä ongelmia ei havaittu",
+      "failed": "OCR epäonnistui"
+    },
+    "engine": {
+      "loadingTesseractCore": "Ladataan OCR-ydintä",
+      "loadedTesseractCore": "OCR-ydin ladattu",
+      "initializingTesseract": "Alustetaan OCR-moottoria",
+      "initializedTesseract": "OCR-moottori valmis",
+      "loadingLanguageTraineddata": "Ladataan kielidataa",
+      "loadedLanguageTraineddata": "Kielidata ladattu",
+      "initializingApi": "Alustetaan OCR-APIa",
+      "initializedApi": "OCR-API valmis",
+      "recognizingText": "Tunnistetaan tekstiä"
+    }
+  },
+  "metrics": {
+    "findingsReady": "Havainnot valmiina",
+    "highSeverity": "{{count}} korkea vakavuus",
+    "noHighSeverity": "Ei korkeaa vakavuutta",
+    "ocrConfidence": "OCR-varmuus",
+    "inProgress": "Käynnissä",
+    "latestPass": "Viimeisin ajo",
+    "expansionRisk": "Laajenemisriski",
+    "baseline": "{{language}}-perustaso",
+    "scriptDirection": "Kirjoitussuunta",
+    "rtlChecks": "Peilatun RTL:n tarkistukset",
+    "ltrChecks": "Vakiotarkistukset"
+  },
+  "appShell": {
+    "targetLocale": "Kohdekieli",
+    "reviewWorkspace": "Tarkistustyötila",
+    "reviewWorkspaceTitle": "Vahvista kuvakaappaukset ennen monikielistä luovutusta",
+    "reviewWorkspaceDescription": "Suorita kohdennettu QA-tarkistus harjoitteluvirroille, juoksun jälkeisille yhteenvedoille, wearable-pariliitoksille ja metriikkakorteille muuttamatta OCR-moottoria tai heuristiikkaa.",
+    "reviewSummary": "Tarkistusyhteenveto",
+    "ocrStatus": "OCR-tila",
+    "locale": "Kieli",
+    "screenshot": "Kuvakaappaus",
+    "loaded": "Ladattu",
+    "pending": "Odottaa",
+    "bestInputs": "Suositellut syötteet",
+    "bestInputItems": [
+      "Tuloskortit tiiviillä metatietotarroilla.",
+      "Wearable-onboarding tai lisälaitteen pariliitosvirrat.",
+      "Kartta-, GPS- ja sensoritilat dynaamisilla arvoilla."
+    ],
+    "releaseHandoff": "Julkaisuluovutus",
+    "releaseHandoffTitle": "Mitä tämän ajon tulee löytää",
+    "releaseCards": [
+      {
+        "title": "Asetteluvaara kompakteilla pinnoilla",
+        "description": "Kortit, välilehdet ja kellokokoiset näkymät, joissa pitkät käännökset kilpailevat mittareiden ja ikonien kanssa."
+      },
+      {
+        "title": "Dynaaminen teksti ja placeholderit",
+        "description": "Valmennusviestit, saavutusnäkymät ja sensorilukemat, joissa muuttujat yhdistyvät lokalisoituun tekstiin."
+      },
+      {
+        "title": "Kirjoitusjärjestelmän tuki ja luettavuus",
+        "description": "Font fallback, leikatut aksentit ja suuntaongelmat, jotka näkyvät vasta laajenemisessa."
+      }
+    ]
+  },
+  "upload": {
+    "eyebrow": "Kuvakaappauksen tuonti",
+    "title": "Lataa PNG- tai JPG-kuvakaappaus urheilusovelluksesta tai laite-UI:sta",
+    "description": "Käytä tuotantoa vastaavia kuvakaappauksia harjoitteluyhteenvedoista, wearable-asetuksista, palautumisvirroista tai metriikkanäkymistä. OCR poimii näkyvän tekstin ja kohdistaa lokalisointiriskit suoraan pintaan.",
+    "currentAsset": "Nykyinen resurssi:",
+    "button": "Valitse kuvakaappaus",
+    "invalidFile": "Lataa PNG- tai JPG-kuvakaappaus jatkaaksesi.",
+    "loadFailed": "Ladatun kuvan avaaminen epäonnistui."
+  },
+  "canvas": {
+    "eyebrow": "Merkitty esikatselu",
+    "description": "Laatikot merkitsevät epäilyttäviä tekstialueita valitussa urheilu-UI:ssa.",
+    "emptyTitle": "Aloita lataamalla urheilutuotteen kuvakaappaus.",
+    "emptyDescription": "OCR-tulokset, kielikohtaiset heuristiikat ja punaiset rajaukset näkyvät täällä, kun lisäät PNG- tai JPG-kuvan mobiilisovelluksesta, kellon UI:sta tai metriikkapainotteisesta näytöstä.",
+    "imageAlt": "Ladattu UI-kuvakaappaus"
+  },
+  "qa": {
+    "title": "Automaattiset julkaisuhavainnot",
+    "subtitle": "Tarkistetaan kieltä {{language}} OCR-poiminnan ja urheilu-UI:n lokalisointiheuristiikkojen avulla.",
+    "flagged": "{{count}} merkitty",
+    "currentAsset": "Nykyinen resurssi",
+    "noAsset": "Kuvakaappausta ei ole valittu",
+    "ocrInProgress": "OCR käynnissä",
+    "readyToReview": "Valmis tarkistukseen",
+    "standby": "Valmiustila",
+    "waitingTitle": "Odottaa tarkistettavaa näkymää",
+    "waitingDescription": "Lisää kuvakaappaus harjoittelusovelluksesta, wearable-virrasta tai metriikkanäkymästä, jotta OCR-teksti ja merkinnät voidaan luoda.",
+    "issue": "Ongelma {{index}}",
+    "suggestedFix": "Suositeltu korjaus:",
+    "characterExpansionRisk": "Merkkien laajenemisriski {{risk}}%",
+    "extractedText": "Poimittu teksti",
+    "ocrTag": "OCR",
+    "noIssuesTitle": "Tällä ajolla ei havaittu selviä ongelmia.",
+    "noIssuesDescription": "Heuristiikat eivät havainneet overflow’ta, placeholder-järjestystä tai leikkautumista valitulla kielellä. Lopullinen manuaalinen tarkistus on silti suositeltava.",
+    "ocrOutputPlaceholder": "OCR-tulos ilmestyy tähän, kun kuvakaappaus on käsitelty.",
+    "categories": {
+      "overflow": "Tekstin overflow",
+      "rtl": "RTL-asettelu",
+      "placeholder": "Placeholder-järjestys",
+      "lineHeight": "Rivivälin leikkautuminen",
+      "truncation": "Toisen rivin katkaisu",
+      "fontFallback": "Font fallback"
+    },
+    "severity": {
+      "High": "Korkea",
+      "Medium": "Keskitaso",
+      "Low": "Matala"
+    }
+  },
+  "reviewGuidance": {
+    "eyebrow": "Tarkistusohjeet",
+    "title": "Urheilu-UI:lle suunnatut julkaisukontrollit",
+    "expansion": "Laajeneminen",
+    "baseline": "{{value}} % perustaso",
+    "expansionDescription": "Priorisoi tiheät harjoittelukortit, kompaktit otsikot ja ahtaat kellonäkymät.",
+    "direction": "Suunta",
+    "rtl": "RTL-tarkistus",
+    "ltr": "LTR-tarkistus",
+    "rtlDescription": "Tarkista peilatun marginaalin, ikonijärjestyksen ja suuntametriikoiden oikeellisuus kaikilla merkityillä pinnoilla.",
+    "ltrDescription": "Varmista vasen ankkurointi, numeroformaatit ja otsikoiden rytmi tiiviissä näkymissä.",
+    "prioritySurfaces": "Prioriteettipinnat",
+    "priorityTitle": "Kello, GPS, palautuminen",
+    "priorityDescription": "Keskity harjoitteluyhteenvetoihin, vauhtikortteihin, syketiloihin ja lisälaiteasetuksiin.",
+    "manualPass": "Manuaalinen tarkistus",
+    "manualPassItems": [
+      "Tarkista yksikkötarrat, vauhtilyhenteet ja sensorinimien johdonmukaisuus.",
+      "Varmista CTA-leveys tavoitteen saavutus- ja harjoittelun yksityiskohtanäkymissä.",
+      "Tarkista placeholderit dynaamisissa valmennusviesteissä ja yhteenvetokorteissa."
+    ],
+    "escalateWhen": "Eskalaa kun",
+    "escalateItems": [
+      "Korkean vakavuuden löydökset vaikuttavat kellotaulun rajoituksiin tai juoksun jälkeisiin yhteenvetoihin.",
+      "Font fallback muuttaa mittarien ilmettä mobiilin ja wearable-laitteen välillä.",
+      "RTL-järjestys rikkoo ikoni + arvo -parit aktiviteetti-, palautumis- tai karttanäytöissä."
+    ]
+  },
+  "issues": {
+    "ocrLowText": {
+      "title": "OCR poimi hyvin vähän tekstiä",
+      "description": "Kuvakaappaus ei tuottanut tarpeeksi tekstiä täydelliseen lokalisointi-QA-ajoon.",
+      "fix": "Kokeile tarkempaa kuvakaappausta tai rajaa lähemmäs käyttöliittymätekstiä ennen OCR:n uudelleensuoritusta."
+    },
+    "overflow": {
+      "title": "Teksti ylittää todennäköisesti sille tarkoitetun alueen",
+      "description": "Tekstin \"{{text}}\" OCR-alue on epätavallisen leveä ja lähellä reunaa, mikä on yleinen overflow-signaali lokalisoidussa UI:ssa.",
+      "fix": "Kasvata säiliön leveyttä, salli rivinvaihto tai lyhennä lokalisoitua tekstiä."
+    },
+    "rtl": {
+      "title": "RTL-teksti näyttää vasemmalle ankkuroidulta tai väärin kohdistetulta",
+      "description": "{{language}}-rivi \"{{text}}\" on sijoitettu kuin LTR-elementti, mikä voi viitata peilaus- tai kohdistusongelmaan.",
+      "fix": "Tasaa säiliö oikealle, peilaa suuntakohtainen spacing ja varmista ikoni + teksti -järjestys."
+    },
+    "placeholder": {
+      "title": "Placeholder-järjestys voi rikkoutua tässä kielessä",
+      "description": "Tekstissä \"{{text}}\" havaittiin placeholderit. Sekasuuntainen tai uudelleenjärjestetty placeholderointi rikkoo usein lauserakennetta.",
+      "fix": "Käytä eksplisiittistä placeholder-järjestystä ja varmista, että kääntäjät voivat järjestää ne turvallisesti uudelleen."
+    },
+    "lineHeight": {
+      "title": "Riviväli näyttää liian tiukalta",
+      "description": "Tekstirivillä \"{{text}}\" on vähän pystysuuntaista tilaa viereisiin OCR-riveihin verrattuna, mikä voi leikata aksentteja, alasteita tai RTL-merkkejä.",
+      "fix": "Kasvata riviväliä tai pystysuuntaista paddingia, erityisesti kirjoitusjärjestelmäkohtaisille merkeille."
+    },
+    "truncation": {
+      "title": "Toinen rivi voi olla katkaistu",
+      "description": "Seuraava rivi \"{{text}}\" on äkillisesti paljon lyhyempi kuin ylempi rivi, mikä viittaa usein piilotettuun tai clampattuun sisältöön.",
+      "fix": "Löysää rivirajoituksia, kasvata säiliön korkeutta tai lyhennä lokalisoitua tekstiä."
+    },
+    "fontFallback": {
+      "title": "Tälle kirjoitusjärjestelmälle havaittiin font fallback -riski",
+      "descriptionSized": "Tekstissä \"{{text}}\" havaittiin poikkeavan epätasaisia glyfikokoja, mikä voi johtua toissijaisesta fallback-fontista.",
+      "descriptionMissing": "OCR ei tunnistanut luotettavasti odotettuja {{language}}-merkkejä, mikä voi viitata fallbackiin tai puutteelliseen script-tukeen.",
+      "fix": "Lisää tälle kirjoitusjärjestelmälle selkeä fonttistack ja varmista, että fallback-fontti vastaa haluttua mittaa ja tyyliä."
+    }
+  }
+}

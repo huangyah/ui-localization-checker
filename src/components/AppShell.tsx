@@ -1,10 +1,13 @@
 import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { analyzeLocalizationIssues } from '../utils/analysis';
 import { getLanguageConfig, LANGUAGE_OPTIONS } from '../utils/languages';
 import { runOcr } from '../utils/ocr';
+import { getUiLanguageOption } from '../utils/uiLanguages';
 import type { DetectionIssue, OcrExtraction, SupportedLanguage } from '../utils/types';
 import { DashboardHeader } from './DashboardHeader';
 import { ImageInspectionCanvas } from './ImageInspectionCanvas';
+import { InterfaceLanguageSwitcher } from './InterfaceLanguageSwitcher';
 import { LanguageSelector } from './LanguageSelector';
 import { MetricCard } from './MetricCard';
 import { QAReportPanel } from './QAReportPanel';
@@ -19,6 +22,18 @@ interface ImageSize {
   height: number;
 }
 
+const engineStatusMap: Record<string, string> = {
+  'loading tesseract core': 'status.engine.loadingTesseractCore',
+  'loaded tesseract core': 'status.engine.loadedTesseractCore',
+  'initializing tesseract': 'status.engine.initializingTesseract',
+  'initialized tesseract': 'status.engine.initializedTesseract',
+  'loading language traineddata': 'status.engine.loadingLanguageTraineddata',
+  'loaded language traineddata': 'status.engine.loadedLanguageTraineddata',
+  'initializing api': 'status.engine.initializingApi',
+  'initialized api': 'status.engine.initializedApi',
+  'recognizing text': 'status.engine.recognizingText',
+};
+
 async function loadImageSize(url: string): Promise<ImageSize> {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -28,30 +43,40 @@ async function loadImageSize(url: string): Promise<ImageSize> {
   });
 }
 
-function getReviewStage(phase: OCRPhase, issues: DetectionIssue[]) {
+function translateEngineStatus(status: string, t: (key: string, options?: Record<string, unknown>) => string) {
+  const translationKey = engineStatusMap[status.toLowerCase()];
+  return translationKey ? t(translationKey) : status;
+}
+
+function getReviewStage(
+  phase: OCRPhase,
+  issues: DetectionIssue[],
+  t: (key: string, options?: Record<string, unknown>) => string,
+) {
   switch (phase) {
     case 'idle':
-      return 'Awaiting review surface';
+      return t('status.review.awaiting');
     case 'preparing':
-      return 'Preparing screenshot';
+      return t('status.review.preparing');
     case 'running':
-      return 'Running OCR and layout checks';
+      return t('status.review.running');
     case 'error':
-      return 'Review blocked';
+      return t('status.review.blocked');
     case 'done':
-      return issues.length ? 'Findings ready for localization review' : 'Clean heuristic pass';
+      return issues.length ? t('status.review.findings') : t('status.review.clean');
     default:
-      return 'Awaiting review surface';
+      return t('status.review.awaiting');
   }
 }
 
 export function AppShell() {
+  const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>('en');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageSize, setImageSize] = useState<ImageSize | null>(null);
   const [ocrPhase, setOcrPhase] = useState<OCRPhase>('idle');
-  const [ocrStatus, setOcrStatus] = useState('Awaiting screenshot');
+  const [ocrStatus, setOcrStatus] = useState(() => t('status.ocr.awaiting'));
   const [ocrProgress, setOcrProgress] = useState(0);
   const [ocrResult, setOcrResult] = useState<OcrExtraction | null>(null);
   const [issues, setIssues] = useState<DetectionIssue[]>([]);
@@ -59,6 +84,11 @@ export function AppShell() {
   const [activeIssueId, setActiveIssueId] = useState<string | null>(null);
   const objectUrlRef = useRef<string | null>(null);
   const requestIdRef = useRef(0);
+
+  const languageConfig = getLanguageConfig(selectedLanguage);
+  const localeLabel = t(languageConfig.labelKey);
+  const activeUiLanguage = getUiLanguageOption(i18n.resolvedLanguage ?? i18n.language);
+  const uiLanguageLabel = t(activeUiLanguage.labelKey);
 
   useEffect(() => {
     return () => {
@@ -75,10 +105,9 @@ export function AppShell() {
 
     const requestId = ++requestIdRef.current;
     let disposed = false;
-    const languageConfig = getLanguageConfig(selectedLanguage);
 
     setOcrPhase('running');
-    setOcrStatus(`Running OCR for ${languageConfig.label}`);
+    setOcrStatus(t('status.ocr.runningFor', { language: localeLabel }));
     setOcrProgress(0.03);
     setErrorMessage(null);
     setActiveIssueId(null);
@@ -90,7 +119,7 @@ export function AppShell() {
             return;
           }
 
-          setOcrStatus(status);
+          setOcrStatus(translateEngineStatus(status, t));
           setOcrProgress(progress);
         });
 
@@ -98,17 +127,9 @@ export function AppShell() {
           return;
         }
 
-        const nextIssues = analyzeLocalizationIssues({
-          extraction,
-          imageSize,
-          language: selectedLanguage,
-        });
-
         startTransition(() => {
           setOcrResult(extraction);
-          setIssues(nextIssues);
           setOcrPhase('done');
-          setOcrStatus(nextIssues.length ? 'Issues detected' : 'No obvious issues detected');
           setOcrProgress(1);
         });
       } catch (error) {
@@ -117,26 +138,54 @@ export function AppShell() {
         }
 
         setOcrPhase('error');
-        setOcrStatus('OCR failed');
-        setErrorMessage(error instanceof Error ? error.message : 'Unable to process the screenshot.');
+        setOcrStatus(t('status.ocr.failed'));
+        setErrorMessage(error instanceof Error ? error.message : t('status.ocr.failed'));
       }
     })();
 
     return () => {
       disposed = true;
     };
-  }, [imageSize, selectedLanguage, uploadedFile]);
+  }, [imageSize, selectedLanguage, uploadedFile, languageConfig.tesseractCode]);
+
+  useEffect(() => {
+    if (!ocrResult || !imageSize) {
+      return;
+    }
+
+    const nextIssues = analyzeLocalizationIssues({
+      extraction: ocrResult,
+      imageSize,
+      language: selectedLanguage,
+    });
+
+    setIssues(nextIssues);
+
+    if (ocrPhase === 'done') {
+      setOcrStatus(nextIssues.length ? t('status.ocr.issuesDetected') : t('status.ocr.noIssues'));
+    }
+  }, [i18n.language, imageSize, ocrPhase, ocrResult, selectedLanguage, t]);
+
+  useEffect(() => {
+    if (ocrPhase === 'idle') {
+      setOcrStatus(t('status.ocr.awaiting'));
+    } else if (ocrPhase === 'preparing') {
+      setOcrStatus(t('status.ocr.preparing'));
+    } else if (ocrPhase === 'error' && !errorMessage) {
+      setOcrStatus(t('status.ocr.failed'));
+    }
+  }, [errorMessage, ocrPhase, t]);
 
   async function handleFileSelect(file: File) {
     if (!['image/png', 'image/jpeg'].includes(file.type)) {
-      setErrorMessage('Upload a PNG or JPG screenshot to continue.');
+      setErrorMessage(t('upload.invalidFile'));
       setOcrPhase('error');
       return;
     }
 
     setErrorMessage(null);
     setOcrPhase('preparing');
-    setOcrStatus('Preparing screenshot');
+    setOcrStatus(t('status.ocr.preparing'));
     setOcrProgress(0);
     setOcrResult(null);
     setIssues([]);
@@ -154,71 +203,78 @@ export function AppShell() {
       setImageUrl(nextUrl);
       setImageSize(nextImageSize);
       setUploadedFile(file);
-    } catch (error) {
+    } catch {
       URL.revokeObjectURL(nextUrl);
       setOcrPhase('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to load the uploaded image.');
+      setErrorMessage(t('upload.loadFailed'));
     }
   }
 
-  const languageConfig = getLanguageConfig(selectedLanguage);
   const highSeverityCount = issues.filter((issue) => issue.severity === 'High').length;
   const maxRisk = issues.length ? Math.max(...issues.map((issue) => issue.charExpansionRisk)) : 0;
   const averageConfidence = ocrResult?.lines.length
     ? Math.round(ocrResult.lines.reduce((total, line) => total + line.confidence, 0) / ocrResult.lines.length)
     : 0;
-  const reviewStage = getReviewStage(ocrPhase, issues);
+  const reviewStage = getReviewStage(ocrPhase, issues, t);
 
   const metrics = useMemo(
     () => [
       {
-        label: 'Findings ready',
+        label: t('metrics.findingsReady'),
         value: `${issues.length}`,
-        delta: highSeverityCount ? `${highSeverityCount} high severity` : 'No high severity',
+        delta: highSeverityCount
+          ? t('metrics.highSeverity', { count: highSeverityCount })
+          : t('metrics.noHighSeverity'),
         tone: highSeverityCount ? ('amber' as const) : ('emerald' as const),
       },
       {
-        label: 'OCR confidence',
+        label: t('metrics.ocrConfidence'),
         value: averageConfidence ? `${averageConfidence}%` : '--',
-        delta: ocrPhase === 'running' ? 'In progress' : 'Latest pass',
+        delta: ocrPhase === 'running' ? t('metrics.inProgress') : t('metrics.latestPass'),
         tone: averageConfidence >= 80 ? ('emerald' as const) : ('slate' as const),
       },
       {
-        label: 'Expansion risk',
+        label: t('metrics.expansionRisk'),
         value: `${maxRisk}%`,
-        delta: `${languageConfig.label} baseline`,
+        delta: t('metrics.baseline', { language: localeLabel }),
         tone: maxRisk >= 35 ? ('amber' as const) : ('slate' as const),
       },
       {
-        label: 'Script direction',
+        label: t('metrics.scriptDirection'),
         value: languageConfig.rtl ? 'RTL' : 'LTR',
-        delta: languageConfig.rtl ? 'Mirror layout checks' : 'Standard layout checks',
+        delta: languageConfig.rtl ? t('metrics.rtlChecks') : t('metrics.ltrChecks'),
         tone: languageConfig.rtl ? ('amber' as const) : ('slate' as const),
       },
     ],
-    [averageConfidence, highSeverityCount, issues.length, languageConfig.label, languageConfig.rtl, maxRisk, ocrPhase],
+    [averageConfidence, highSeverityCount, issues.length, languageConfig.rtl, localeLabel, maxRisk, ocrPhase, t],
   );
 
   return (
-    <div className="min-h-screen text-[var(--text-strong)]">
+    <div className="relative min-h-screen text-[var(--text-strong)]">
+      <div className="app-shell-bg" />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
         <DashboardHeader
           currentAsset={uploadedFile?.name ?? null}
           highSeverityCount={highSeverityCount}
           issueCount={issues.length}
-          languageLabel={languageConfig.label}
+          languageLabel={localeLabel}
           progress={ocrProgress}
           status={reviewStage}
+          uiLanguageLabel={uiLanguageLabel}
+          uiLanguageShortLabel={activeUiLanguage.shortLabel}
         >
-          <LanguageSelector
-            label="Target locale"
-            options={LANGUAGE_OPTIONS}
-            value={selectedLanguage}
-            onChange={setSelectedLanguage}
-          />
+          <div className="grid gap-3">
+            <InterfaceLanguageSwitcher />
+            <LanguageSelector
+              label={t('appShell.targetLocale')}
+              options={LANGUAGE_OPTIONS}
+              value={selectedLanguage}
+              onChange={setSelectedLanguage}
+            />
+          </div>
         </DashboardHeader>
 
-        <main className="mt-6 flex-1">
+        <main className="relative z-10 mt-6 flex-1">
           <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {metrics.map((metric) => (
               <MetricCard key={metric.label} {...metric} />
@@ -228,9 +284,9 @@ export function AppShell() {
           <section className="mt-4 grid gap-4 xl:grid-cols-[1.3fr_0.86fr]">
             <div className="grid gap-4">
               <SectionCard
-                eyebrow="Review workspace"
-                title="Validate screenshots before multilingual release handoff"
-                description="Run a focused QA pass on training flows, post-run summaries, wearable pairing screens, and metrics-heavy cards without changing the OCR or issue-detection engine."
+                eyebrow={t('appShell.reviewWorkspace')}
+                title={t('appShell.reviewWorkspaceTitle')}
+                description={t('appShell.reviewWorkspaceDescription')}
               >
                 <div className="grid gap-4">
                   <UploadDropzone
@@ -240,44 +296,42 @@ export function AppShell() {
                   />
 
                   <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_240px]">
-                    <div className="panel-muted rounded-[1.5rem] p-4">
-                      <p className="text-[11px] uppercase tracking-[0.26em] text-[var(--text-muted)]">
-                        Review summary
+                    <div className="panel-muted cut-corner-panel rounded-[1.5rem] p-4">
+                      <p className="text-[11px] uppercase tracking-[0.26em] text-[var(--tone-sky)]">
+                        {t('appShell.reviewSummary')}
                       </p>
                       <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                        <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-3">
-                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--text-muted)]">
-                            OCR status
+                        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3">
+                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--tone-sky)]">
+                            {t('appShell.ocrStatus')}
                           </p>
                           <p className="mt-2 text-sm font-medium text-[var(--text-strong)]">{ocrStatus}</p>
                         </div>
-                        <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-3">
-                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--text-muted)]">
-                            Locale
+                        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3">
+                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--tone-sky)]">
+                            {t('appShell.locale')}
                           </p>
-                          <p className="mt-2 text-sm font-medium text-[var(--text-strong)]">
-                            {languageConfig.label}
-                          </p>
+                          <p className="mt-2 text-sm font-medium text-[var(--text-strong)]">{localeLabel}</p>
                         </div>
-                        <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-3">
-                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--text-muted)]">
-                            Screenshot
+                        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3">
+                          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--tone-sky)]">
+                            {t('appShell.screenshot')}
                           </p>
                           <p className="mt-2 text-sm font-medium text-[var(--text-strong)]">
-                            {uploadedFile ? 'Loaded' : 'Pending'}
+                            {uploadedFile ? t('appShell.loaded') : t('appShell.pending')}
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="panel-muted rounded-[1.5rem] p-4">
-                      <p className="text-[11px] uppercase tracking-[0.26em] text-[var(--text-muted)]">
-                        Best inputs
+                    <div className="panel-muted cut-corner-panel rounded-[1.5rem] p-4">
+                      <p className="text-[11px] uppercase tracking-[0.26em] text-[var(--tone-violet)]">
+                        {t('appShell.bestInputs')}
                       </p>
                       <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--text-body)]">
-                        <li>Workout result cards with tight metadata labels.</li>
-                        <li>Wearable onboarding or accessory pairing flows.</li>
-                        <li>Map, GPS, and sensor summary states with dynamic values.</li>
+                        {(['0', '1', '2'] as const).map((index) => (
+                          <li key={index}>{t(`appShell.bestInputItems.${index}`)}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -297,7 +351,7 @@ export function AppShell() {
               <ReviewChecklistCard
                 expansionBaseline={languageConfig.expansionBaseline}
                 isRtl={languageConfig.rtl}
-                languageLabel={languageConfig.label}
+                languageLabel={localeLabel}
               />
             </div>
 
@@ -313,35 +367,24 @@ export function AppShell() {
                 phase={ocrPhase}
               />
 
-              <section className="panel-shell rounded-[1.75rem] p-5">
-                <p className="text-[11px] uppercase tracking-[0.28em] text-[var(--text-muted)]">
-                  Release handoff
+              <section className="panel-shell cut-corner-panel rounded-[1.75rem] p-5">
+                <p className="text-[11px] uppercase tracking-[0.28em] text-[var(--tone-violet)]">
+                  {t('appShell.releaseHandoff')}
                 </p>
-                <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-[var(--text-strong)]">
-                  What this pass is meant to catch
+                <h3 className="section-title mt-3 text-xl font-semibold tracking-[-0.03em]">
+                  {t('appShell.releaseHandoffTitle')}
                 </h3>
                 <div className="mt-4 grid gap-3">
-                  <div className="panel-muted rounded-2xl p-4">
-                    <p className="text-sm font-medium text-[var(--text-strong)]">Layout risk on compact surfaces</p>
-                    <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-                      Cards, tabs, and watch-sized layouts where longer localized strings compete with metrics and
-                      icons.
-                    </p>
-                  </div>
-                  <div className="panel-muted rounded-2xl p-4">
-                    <p className="text-sm font-medium text-[var(--text-strong)]">Dynamic copy and placeholders</p>
-                    <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-                      Coaching messages, achievement states, and sensor readouts that combine variables with
-                      localized text.
-                    </p>
-                  </div>
-                  <div className="panel-muted rounded-2xl p-4">
-                    <p className="text-sm font-medium text-[var(--text-strong)]">Script support and readability</p>
-                    <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
-                      Fallback font drift, clipped accents, and directional issues that appear only after locale
-                      expansion.
-                    </p>
-                  </div>
+                  {(['0', '1', '2'] as const).map((index) => (
+                    <div key={index} className="panel-muted interactive-panel rounded-2xl p-4">
+                      <p className="text-sm font-medium text-[var(--text-strong)]">
+                        {t(`appShell.releaseCards.${index}.title`)}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[var(--text-body)]">
+                        {t(`appShell.releaseCards.${index}.description`)}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </section>
             </div>
