@@ -1,6 +1,6 @@
 import { cn } from '../utils/cn';
 
-type MetricTone = 'emerald' | 'amber' | 'slate';
+type MetricTone = 'emerald' | 'amber' | 'rose' | 'slate';
 
 interface MetricCardProps {
   label: string;
@@ -12,6 +12,7 @@ interface MetricCardProps {
 const toneStyles: Record<MetricTone, string> = {
   emerald: 'border-[rgba(16,185,129,0.26)] bg-[rgba(16,185,129,0.12)] text-[#d1fae5]',
   amber: 'border-[rgba(245,158,11,0.26)] bg-[rgba(245,158,11,0.12)] text-[#fef3c7]',
+  rose: 'border-[rgba(239,68,68,0.34)] bg-[rgba(239,68,68,0.18)] text-white',
   slate: 'border-[rgba(59,130,246,0.18)] bg-[rgba(59,130,246,0.08)] text-[var(--text-body)]',
 };
 

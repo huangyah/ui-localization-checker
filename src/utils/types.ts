@@ -73,3 +73,11 @@ export interface LanguageOption {
   tesseractCode: string;
   value: SupportedLanguage;
 }
+
+export type PlaceholderIssue = {
+  type: 'missing' | 'extra' | 'order' | 'type' | 'format';
+  severity: 'critical' | 'high' | 'medium';
+  placeholder: string;
+  description: string;
+  suggestion: string;
+};
