@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { analyzeLocalizationIssues } from '../utils/analysis';
 import { getLanguageConfig, LANGUAGE_OPTIONS } from '../utils/languages';
 import { runOcr } from '../utils/ocr';
+import { validatePlaceholders } from '../utils/placeholder';
 import { getUiLanguageOption } from '../utils/uiLanguages';
-import type { DetectionIssue, OcrExtraction, SupportedLanguage } from '../utils/types';
+import type { DetectionIssue, OcrExtraction, PlaceholderIssue, SupportedLanguage } from '../utils/types';
 import { DashboardHeader } from './DashboardHeader';
 import { ImageInspectionCanvas } from './ImageInspectionCanvas';
 import { InterfaceLanguageSwitcher } from './InterfaceLanguageSwitcher';
 import { LanguageSelector } from './LanguageSelector';
 import { MetricCard } from './MetricCard';
+import { PlaceholderValidator, PLACEHOLDER_DEMO_SOURCE, PLACEHOLDER_DEMO_TRANSLATION } from './PlaceholderValidator';
 import { QAReportPanel } from './QAReportPanel';
 import { ReviewChecklistCard } from './ReviewChecklistCard';
 import { SectionCard } from './SectionCard';
@@ -80,6 +82,9 @@ export function AppShell() {
   const [ocrProgress, setOcrProgress] = useState(0);
   const [ocrResult, setOcrResult] = useState<OcrExtraction | null>(null);
   const [issues, setIssues] = useState<DetectionIssue[]>([]);
+  const [placeholderIssues, setPlaceholderIssues] = useState<PlaceholderIssue[]>(() =>
+    validatePlaceholders(PLACEHOLDER_DEMO_SOURCE, PLACEHOLDER_DEMO_TRANSLATION),
+  );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activeIssueId, setActiveIssueId] = useState<string | null>(null);
   const objectUrlRef = useRef<string | null>(null);
@@ -211,6 +216,7 @@ export function AppShell() {
   }
 
   const highSeverityCount = issues.filter((issue) => issue.severity === 'High').length;
+  const hasCriticalPlaceholderIssue = placeholderIssues.some((issue) => issue.severity === 'critical');
   const maxRisk = issues.length ? Math.max(...issues.map((issue) => issue.charExpansionRisk)) : 0;
   const averageConfidence = ocrResult?.lines.length
     ? Math.round(ocrResult.lines.reduce((total, line) => total + line.confidence, 0) / ocrResult.lines.length)
@@ -240,13 +246,30 @@ export function AppShell() {
         tone: maxRisk >= 35 ? ('amber' as const) : ('slate' as const),
       },
       {
+        label: 'Placeholder Issues',
+        value: `${placeholderIssues.length}`,
+        delta: hasCriticalPlaceholderIssue ? 'Critical placeholders' : placeholderIssues.length ? 'Needs placeholder QA' : 'All placeholders pass',
+        tone: hasCriticalPlaceholderIssue ? ('rose' as const) : placeholderIssues.length ? ('amber' as const) : ('emerald' as const),
+      },
+      {
         label: t('metrics.scriptDirection'),
         value: languageConfig.rtl ? 'RTL' : 'LTR',
         delta: languageConfig.rtl ? t('metrics.rtlChecks') : t('metrics.ltrChecks'),
         tone: languageConfig.rtl ? ('amber' as const) : ('slate' as const),
       },
     ],
-    [averageConfidence, highSeverityCount, issues.length, languageConfig.rtl, localeLabel, maxRisk, ocrPhase, t],
+    [
+      averageConfidence,
+      hasCriticalPlaceholderIssue,
+      highSeverityCount,
+      issues.length,
+      languageConfig.rtl,
+      localeLabel,
+      maxRisk,
+      ocrPhase,
+      placeholderIssues.length,
+      t,
+    ],
   );
 
   return (
@@ -275,7 +298,7 @@ export function AppShell() {
         </DashboardHeader>
 
         <main className="relative z-10 mt-6 flex-1">
-          <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
             {metrics.map((metric) => (
               <MetricCard key={metric.label} {...metric} />
             ))}
@@ -356,6 +379,8 @@ export function AppShell() {
             </div>
 
             <div className="grid gap-4">
+              <PlaceholderValidator onIssuesChange={setPlaceholderIssues} />
+
               <QAReportPanel
                 activeIssueId={activeIssueId}
                 errorMessage={errorMessage}
